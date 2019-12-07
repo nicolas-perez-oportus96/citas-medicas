@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Dashboard | Horas Medicas</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Estilos personales-->
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- FontAwesome Icons-->
+    <script src="https://kit.fontawesome.com/e304128593.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="signIn">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+        <div class="centroMedico">
+            <h5><i class="far fa-hospital mr-2"></i>CESFAM Leocan Portus<a href="#" class="badge badge-pill badge-danger ml-2">Cerrar Sesion</a></h5>
+        </div>
+        <button class="btn btn-outline-info my-2 my-sm-0" href="/" type="submit"><i class="fas fa-info-circle mr-1"></i>Informacion Centro Medico</button>
+    </nav>
+
+    <!-- dashboard -->
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="col-md-4 p-2 ">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="img/carrusel1.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Medico General</h5>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-success" href="/createDate.html"> <i class="fas fa-calendar-week mr-1"></i>Citas</button>
+                            <button type="button" class="btn btn-outline-secondary" href="/createDate.html"> <i class="fas fa-calendar-week mr-1"></i>Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 p-2 ">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="img/carrusel1.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Odontologia</h5>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-success" href="/createDate.html"> <i class="fas fa-calendar-week mr-1"></i>Citas</button>
+                            <button type="button" class="btn btn-outline-secondary" href="/createDate.html"> <i class="fas fa-calendar-week mr-1"></i>Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 p-2 ">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="img/carrusel1.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Psicologia</h5>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-success" href="/createDate.html"> <i class="fas fa-calendar-week mr-1"></i>Citas</button>
+                            <button type="button" class="btn btn-outline-secondary" href="/createDate.html"> <i class="fas fa-calendar-week mr-1"></i>Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 p-2">
+                <div class="card shadow-sm p-3 text-white bg-info rounded mb-3" style="width: 18rem;">
+                    <img src="img/plus.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-text">Nueva Area Medica.</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- footer -->
+    <footer class="site-footer fixed-bottom">
+        <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-between">
+                <img src="../../img/favicon.png" width=" 30 " height=" 30 " class=" d-inline-block align-top " alt=" " />
+                <span class="text-light">Sistema de Horas Medicas <span class="badge badge-primary">Beta</span></span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

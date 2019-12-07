@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard | Horas Medicas</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Estilos personales-->
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- FontAwesome Icons-->
+    <script src="https://kit.fontawesome.com/e304128593.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="signIn">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+        <div class="centroMedico">
+            <h5><i class="far fa-hospital mr-2"></i>CESFAM Leocan Portus<a href="#" class="badge badge-pill badge-danger ml-2">Cerrar Sesion</a></h5>
+        </div>
+        <button class="btn btn-outline-info my-2 my-sm-0" href="/" type="submit"><i class="fas fa-info-circle mr-1"></i>Informacion Centro Medico</button>
+    </nav>
+
+    <!-- dashboard -->
+    <div class="container">
+        <div class="row">
+            <!-- Login -->
+            <div class="container">
+                <div class="card border-0 shadow p-3 mb-5 bg-white rounded my-5">
+                    <div class="card-body p-5">
+                        <h1 class="font-weight-light">Citas Medicas</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID Usuario</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">RUT</th>
+                                    <th scope="col">Area Atencion</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Nicolas Pérez</td>
+                                    <td>192661544</td>
+                                    <td>Odontologia</td>
+                                    <td>12/12/2012</td>
+                                    <td>13:30</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Camilo Garcia</td>
+                                    <td>46546587</td>
+                                    <td>Odontologia</td>
+                                    <td>15/12/2018</td>
+                                    <td>14:55</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Sebastian Cortez</td>
+                                    <td>1256485795</td>
+                                    <td>Odontologia</td>
+                                    <td>12/12/2012</td>
+                                    <td>14:50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- footer -->
+    <footer class="site-footer fixed-bottom">
+        <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-between">
+                <img src="../../img/favicon.png" width=" 30 " height=" 30 " class=" d-inline-block align-top " alt=" " />
+                <span class="text-light">Sistema de Horas Medicas <span class="badge badge-primary">Beta</span></span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

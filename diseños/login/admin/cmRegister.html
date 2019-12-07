@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Registro de Centro Medico | Horas Medicas</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <!--Estilos personales-->
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- FontAwesome Icons-->
+    <script src="https://kit.fontawesome.com/e304128593.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top ">
+        <a class="navbar-brand" href="/">
+            <img src="../../img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt=""> Sistema de Horas Medicas
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="botones">
+                    <a class="btn btn-outline-primary my-2 my-sm-0" href="../../login.html" type="submit">Iniciar Sesion</a>
+                    <a class="btn btn-outline-success my-2 my-sm-0" href="../../registerSelect.html" type="submit">Registarse</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <!-- jumbo -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Registro de Centro Medico</h1>
+            <p class="lead">Complete el formulario de registro con los datos solicitados para agregar un centro medico a la base de datos.</p>
+        </div>
+    </div>
+
+
+    <!-- cmInformation -->
+    <form class="container mt-5 mb-5">
+        <div class="card mb-3">
+            <h5 class="card-header">Informacion de Centro de Atencion Medica</h5>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationDefault01">RUT Administrador</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="192661544" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationDefault01">Nombre del Centro de Atencion Medica</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="Juan Andrés" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Correo Electronico</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="example@example.cl" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault02">Telefono</label>
+                        <input type="number" class="form-control" id="validationDefault02" placeholder="912345678" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Contraseña</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="**********" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Repite contraseña</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="**********" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h5 class="card-header">Zona de residencia y atencion medica.</h5>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault03">Region</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                                        <option>Bio Bio</option>
+                                        <option>Region Metropolitana</option>
+                                        <option>Arica y Parinacota</option>
+                                        <option>Tarapacá</option>
+                                        <option>Los Lagos</option>
+                                    </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault04">Ciudad</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Concepcion</option>
+                                <option>Talcahuano</option>
+                                <option>Penco</option>
+                                <option>Lirquen</option>
+                                <option>Tomé</option>
+                            </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationDefault01">Dirección</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="Av Las flores 111, Poblacion El Bosque" required>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <button class="btn btn-success btn-lg btn-block" type="submit">Registrar Centro Medico</button>
+    </form>
+
+    <!-- footer -->
+    <footer class=" site-footer fixed-bottom ">
+        <div class=" d-flex justify-content-center ">
+            <div class=" d-flex justify-content-between ">
+                <img src="/img/favicon.png" width=" 30 " height=" 30 " class=" d-inline-block align-top " alt=" " />
+                <span class=" text-light ">Sistema de Horas Medicas
+            <span class=" badge badge-primary ">Beta</span></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>.

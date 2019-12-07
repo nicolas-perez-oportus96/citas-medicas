@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Horas Medicas | Registro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top ">
+        <a class="navbar-brand" href="/">
+            <img src="../../img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt=""> Sistema de Horas Medicas
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="botones">
+                    <a class="btn btn-outline-primary my-2 my-sm-0" href="../../login.html" type="submit">Iniciar Sesion</a>
+                    <a class="btn btn-outline-success my-2 my-sm-0" href="../../registerSelect.html" type="submit">Registarse</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <!-- jumbo -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Registro de usuario</h1>
+            <p class="lead">Complete el formulario de registro para poder iniciar sesion en la aplicacion.</p>
+        </div>
+    </div>
+
+    <!-- register -->
+    <form class="container">
+        <div class="card mb-3">
+            <h5 class="card-header">Informacion personal</h5>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationDefault01">Cedula de identidad</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="11222333-4" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Nombres</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="Juan Andrés" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault02">Apellidos</label>
+                        <input type="text" class="form-control" id="validationDefault02" placeholder="Pérez Cotapos" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationDefault01">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" id="validationDefault01" placeholder="Juan Andrés" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Contraseña</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="**********" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Repite contraseña</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="**********" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h5 class="card-header">Zona de residencia y atencion medica.</h5>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault03">Region</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>Bio Bio</option>
+                                    <option>Region Metropolitana</option>
+                                    <option>Arica y Parinacota</option>
+                                    <option>Tarapacá</option>
+                                    <option>Los Lagos</option>
+                                </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault04">Ciudad</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Concepcion</option>
+                            <option>Talcahuano</option>
+                            <option>Penco</option>
+                            <option>Lirquen</option>
+                            <option>Tomé</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationDefault01">Dirección</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="Av Las flores 111, Poblacion El Bosque" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationDefault05">Centro de atencion medica</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>CESFAM Leocan Portus</option>
+                            <option>Hospital Higueras</option>
+                            <option>CESFAM Luis Enriquez</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mb-3">
+            <h5 class="card-header">Informacion de Contacto</h5>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Correo Electronico</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="example@example.cl" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationDefault02">Telefono</label>
+                        <input type="number" class="form-control" id="validationDefault02" placeholder="912345678" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mt-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                <label class="form-check-label" for="invalidCheck2">
+                    Acepto los terminos y Condiciones
+                </label>
+            </div>
+        </div>
+
+        <button class="btn btn-outline-success btn-lg btn-block" type="submit">Registrarse</button>
+    </form>
+
+    <!-- footer -->
+    <footer class="navbar-dark bg-dark py-3 mt-5">
+        <div class="container d-flex justify-content-between">
+            <a class="navbar-brand" href="/"> Sistema de Horas Medicas</a>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de</a>
+                </li>
+                i>
+            </ul>
+        </div>
+
+    </footer>
+
+
+</body>
+
+
+</html>
