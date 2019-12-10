@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.get('/api/pacientes', require('./routes/pacientes'))
-app.get('/api/centrosMedicos', require('./routes/centrosMedicos'))
-app.get('/api/citas', require('./routes/citas'))
+app.use('/api/pacientes', require('./routes/pacientes'))
+app.use('/api/centrosMedicos', require('./routes/centrosMedicos'))
+app.use('/api/citas', require('./routes/citas'))
 
 
 module.exports = app;
