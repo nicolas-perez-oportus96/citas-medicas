@@ -1,7 +1,7 @@
 //DATA MODEL para citas medicas
 const { Schema, model } = require('mongoose');
 
-const cmSchema = new Schema({
+const CmSchema = new Schema({
     rut_admin: {
         type: String,
         required: true,
@@ -11,16 +11,12 @@ const cmSchema = new Schema({
         type: String,
         required: true
     },
-    nombres_cm: {
+    nombre_cm: {
         type: String,
         required: true
     },
     direccion: {
         type: String,
-        required: true
-    },
-    fecha_nacimiento: {
-        type: Date,
         required: true
     },
     telefono: {
@@ -31,4 +27,4 @@ const cmSchema = new Schema({
     },
 })
 
-module.exports = model('CentroMedico', cmSchema);
+module.exports = model('CentroMedico', CmSchema);

@@ -1,4 +1,4 @@
-//INDEX: despliega el servidor (app.js)
+//INDEX: despliega el servidor (app.js) y establece conexion a base de datos.
 require("dotenv").config();
 
 const app = require("./app");

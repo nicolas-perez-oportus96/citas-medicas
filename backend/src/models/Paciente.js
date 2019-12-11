@@ -1,27 +1,27 @@
 //DATA MODEL para citas medicas
 const { Schema, model } = require('mongoose');
 
-const pacienteSchema = new Schema({
+const PacienteSchema = new Schema({
     rut: {
         type: String,
-        required,
+        required: true,
         unique: true
     },
     password: {
         type: String,
-        required
+        required: true
     },
     nombres: {
         type: String,
-        required
+        required: true
     },
     apellidos: {
         type: String,
-        required
+        required: true
     },
     fecha_nacimiento: {
         type: Date,
-        required
+        required: true
     },
     telefono: {
         type: Number,
@@ -29,6 +29,6 @@ const pacienteSchema = new Schema({
     correo: {
         type: String,
     },
-})
+});
 
-module.exports = model('Paciente', pacienteSchema);
+module.exports = model('Paciente', PacienteSchema);

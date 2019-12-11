@@ -4,8 +4,10 @@ const mongoose = require("mongoose");
 const URI = process.env.DB_URI;
 
 mongoose.connect(URI, {
+  useCreateIndex: true,
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 });
 
 const connection = mongoose.connection;
