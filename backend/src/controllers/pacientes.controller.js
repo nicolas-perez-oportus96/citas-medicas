@@ -13,7 +13,7 @@ pacientesCtrl.getPacientes = async (req, res) => {
 };
 
 //Crear nuevo paciente (Register)
-pacientesCtrl.createPaciente = async (req, res) => {
+pacientesCtrl.registerPaciente = async (req, res) => {
     const { rut, password, nombres, apellidos, fecha_nacimiento, telefono, correo } = req.body;
 
     //Validacion simple
@@ -70,7 +70,8 @@ pacientesCtrl.getPaciente = async (req, res) => {
 
 //Actualizar datos del paciente (pendiente re-hash de password)
 pacientesCtrl.updatePaciente = async (req, res) => {
-    const { rut, password, nombres, apellidos, fecha_nacimiento, telefono, correo } = req.body;
+    var password = req.body.password
+    const { rut, nombres, apellidos, fecha_nacimiento, telefono, correo } = req.body;
 
     //Validacion simple
     if (!rut || !password || !nombres || !apellidos || !fecha_nacimiento) {
@@ -79,16 +80,22 @@ pacientesCtrl.updatePaciente = async (req, res) => {
         });
     };
 
-    await Paciente.findOneAndUpdate({ _id: req.params.id }, {
-        rut,
-        password,
-        nombres,
-        apellidos,
-        fecha_nacimiento,
-        telefono,
-        correo
+    // update it with hash
+    await bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
+            password = hash;
+            await Paciente.findOneAndUpdate({ _id: req.params.id }, {
+                rut,
+                password,
+                nombres,
+                apellidos,
+                fecha_nacimiento,
+                telefono,
+                correo
+            });
+            res.json({ message: 'Paciente Modificado' });
+        });
     });
-    res.json({ message: 'Paciente Modificado' });
 };
 
 //Eliminar paciente

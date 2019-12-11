@@ -4,7 +4,7 @@ const { Router } = require('express');
 const router = Router();
 
 
-const { getPacientes, getPaciente, createPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller')
+const { loginPaciente, getPacientes, getPaciente, registerPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller')
 
 
 router.route('/')
@@ -12,7 +12,7 @@ router.route('/')
     .get(getPacientes)
 
     //Crear nuevo paciente
-    .post(createPaciente)
+    .post(registerPaciente)
 
 router.route('/:id')
 
