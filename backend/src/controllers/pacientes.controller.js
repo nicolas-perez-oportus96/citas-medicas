@@ -71,7 +71,6 @@ pacientesCtrl.getPaciente = async(req, res) => {
     } catch (e) {
         res.status(204).send(); //Paciente no encontrado
     }
-
 };
 
 
