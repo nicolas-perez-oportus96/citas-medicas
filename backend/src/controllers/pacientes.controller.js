@@ -14,10 +14,10 @@ pacientesCtrl.getPacientes = async (req, res) => {
 
 //Crear nuevo paciente (Register)
 pacientesCtrl.registerPaciente = async (req, res) => {
-    const { rut, password, nombres, apellidos, fecha_nacimiento, telefono, correo } = req.body;
+    const { rut, password, nombres, apellidos, fecha_nacimiento, ubicacion, telefono, correo } = req.body;
 
     //Validacion simple
-    if (!rut || !password || !nombres || !apellidos || !fecha_nacimiento) {
+    if (!rut || !password || !nombres || !apellidos || !ubicacion || !fecha_nacimiento) {
         return res.json({
             message: 'Datos faltantes'
         });
@@ -34,6 +34,7 @@ pacientesCtrl.registerPaciente = async (req, res) => {
                 nombres,
                 apellidos,
                 fecha_nacimiento,
+                ubicacion,
                 telefono,
                 correo
             });
@@ -51,6 +52,7 @@ pacientesCtrl.registerPaciente = async (req, res) => {
                                     nombres: paciente.nombres,
                                     apellidos: paciente.apellidos,
                                     fecha_nacimiento: paciente.fecha_nacimiento,
+                                    ubicacion: paciente.ubicacion,
                                     telefono: paciente.telefono,
                                     correo: paciente.correo
                                 }
@@ -71,10 +73,10 @@ pacientesCtrl.getPaciente = async (req, res) => {
 //Actualizar datos del paciente (pendiente re-hash de password)
 pacientesCtrl.updatePaciente = async (req, res) => {
     var password = req.body.password
-    const { rut, nombres, apellidos, fecha_nacimiento, telefono, correo } = req.body;
+    const { rut, nombres, apellidos, fecha_nacimiento, ubicacion, telefono, correo } = req.body;
 
     //Validacion simple
-    if (!rut || !password || !nombres || !apellidos || !fecha_nacimiento) {
+    if (!rut || !password || !nombres || !apellidos || !fecha_nacimiento || !ubicacion) {
         return res.json({
             message: 'Datos faltantes'
         });
@@ -90,6 +92,7 @@ pacientesCtrl.updatePaciente = async (req, res) => {
                 nombres,
                 apellidos,
                 fecha_nacimiento,
+                ubicacion,
                 telefono,
                 correo
             });
