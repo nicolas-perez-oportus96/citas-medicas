@@ -1,5 +1,7 @@
-//DATA MODEL para citas medicas
+//DATA MODEL para centros medicos
 const { Schema, model } = require('mongoose');
+
+const UbicacionSchema = require('./Ubicacion.Schema')
 
 const CmSchema = new Schema({
     rut_admin: {
@@ -15,6 +17,7 @@ const CmSchema = new Schema({
         type: String,
         required: true
     },
+    ubicacion: UbicacionSchema,
     direccion: {
         type: String,
         required: true

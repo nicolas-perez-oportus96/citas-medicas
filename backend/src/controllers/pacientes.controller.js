@@ -39,7 +39,7 @@ pacientesCtrl.registerPaciente = async(req, res) => {
                 correo
             });
 
-            //generando Salt y Hash para password
+            //BCRYPT: generando Salt y Hash para password
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newPaciente.password, salt, (err, hash) => {
                     if (err) throw err;
@@ -49,6 +49,7 @@ pacientesCtrl.registerPaciente = async(req, res) => {
                             res.json({
                                 paciente: {
                                     id: paciente.id,
+                                    rut: paciente.rut,
                                     nombres: paciente.nombres,
                                     apellidos: paciente.apellidos,
                                     fecha_nacimiento: paciente.fecha_nacimiento,
@@ -58,9 +59,9 @@ pacientesCtrl.registerPaciente = async(req, res) => {
                                 }
                             });
                         });
-                })
-            })
-        })
+                });
+            });
+        });
 };
 
 //Consultar paciente (por id)

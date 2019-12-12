@@ -1,16 +1,7 @@
 //DATA MODEL para citas medicas
 const { Schema, model } = require('mongoose');
 
-const UbicacionSchema = new Schema({
-    region: {
-        type: String,
-        required: true,
-    },
-    ciudad: {
-        type: String,
-        required: true,
-    }
-})
+const UbicacionSchema = require('./Ubicacion.Schema')
 
 const PacienteSchema = new Schema({
     rut: {
