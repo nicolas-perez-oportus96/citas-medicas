@@ -1,7 +1,26 @@
 //DATA MODEL para centros medicos
 const { Schema, model } = require('mongoose');
 
-const UbicacionSchema = require('./Ubicacion.Schema')
+const RegionSchema = require('./schemes/Region.schema')
+
+//Schema de citas //no utilizado aun
+const CitaSchema = new Schema({
+    id_paciente: {
+        type: String,
+        required: true
+    },
+    id_area_Atencion: {
+        type: String,
+        required: true
+    },
+    fecha: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true
+});
+
 
 const CmSchema = new Schema({
     rut_admin: {
@@ -17,7 +36,7 @@ const CmSchema = new Schema({
         type: String,
         required: true
     },
-    ubicacion: UbicacionSchema,
+    ubicacion: RegionSchema,
     direccion: {
         type: String,
         required: true

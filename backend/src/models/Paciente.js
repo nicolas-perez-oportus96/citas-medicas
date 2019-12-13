@@ -1,7 +1,7 @@
 //DATA MODEL para citas medicas
 const { Schema, model } = require('mongoose');
 
-const UbicacionSchema = require('./Ubicacion.Schema')
+const RegionSchema = require('./schemes/Region.schema')
 
 const PacienteSchema = new Schema({
     rut: {
@@ -25,7 +25,7 @@ const PacienteSchema = new Schema({
         type: Date,
         required: true
     },
-    ubicacion: UbicacionSchema,
+    ubicacion: RegionSchema,
     telefono: {
         type: Number,
     },

@@ -1,5 +1,5 @@
 //DATA MODEL para citas medicas
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 const CitaSchema = new Schema({
     id_paciente: {
@@ -18,4 +18,4 @@ const CitaSchema = new Schema({
     timestamps: true
 });
 
-module.exports = model('Cita', CitaSchema);
+module.exports = CitaSchema;

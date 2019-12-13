@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes
+app.use('/api/region', require('./routes/regiones'))
 app.use('/api/pacientes', require('./routes/pacientes'))
 app.use('/api/centrosMedicos', require('./routes/centrosMedicos'))
 app.use('/api/citas', require('./routes/citas'))

@@ -1,7 +1,7 @@
 //DATA SCHEMA para almacenar ubicacion dentro de perfiles
 const { Schema } = require('mongoose');
 
-const UbicacionSchema = new Schema({
+const RegionSchema = new Schema({
     region: {
         _id: {
             type: String,
@@ -26,4 +26,4 @@ const UbicacionSchema = new Schema({
     }
 }, { _id: false });
 
-module.exports = UbicacionSchema;
+module.exports = RegionSchema;

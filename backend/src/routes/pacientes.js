@@ -15,7 +15,6 @@ router.route('/')
     .post(registerPaciente)
 
 router.route('/:id')
-
     //Consultar paciente
     .get(getPaciente)
 
