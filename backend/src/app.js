@@ -12,9 +12,8 @@ app.use(express.json());
 
 // routes
 app.use('/api/region', require('./routes/regiones'))
-app.use('/api/pacientes', require('./routes/pacientes'))
-app.use('/api/centrosMedicos', require('./routes/centrosMedicos'))
-app.use('/api/citas', require('./routes/citas'))
+app.use('/api/paciente', require('./routes/pacientes'))
+app.use('/api/cm', require('./routes/centrosMedicos'))
 
 
 module.exports = app;

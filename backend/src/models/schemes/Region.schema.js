@@ -6,7 +6,6 @@ const RegionSchema = new Schema({
         _id: {
             type: String,
             required: true,
-            unique: true
         },
         nombre: {
             type: String,
@@ -17,13 +16,12 @@ const RegionSchema = new Schema({
         _id: {
             type: String,
             required: true,
-            unique: true
         },
         nombre: {
             type: String,
             required: true,
         }
     }
-}, { _id: false });
+}, { autoIndex: false });
 
 module.exports = RegionSchema;

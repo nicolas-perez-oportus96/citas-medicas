@@ -2,32 +2,42 @@
 const { Router } = require('express');
 const router = Router();
 
-const { getRegiones, createRegion, getRegion, getCiudades, createCiudad, getCiudad } = require('../controllers/regiones.controller')
+const { getRegiones, createRegion, getRegion, getCiudades, createCiudad, deleteRegion } = require('../controllers/regiones.controller')
 
+
+//@ Route: /api/region/
 router.route('/')
-    //Consultar regiones
+
+    //Ver regiones (getRegiones)
+    // Access: public
     .get(getRegiones)
 
-    //Crear region
+    //Crear regiones (createRegion)
+    // Access: public
     .post(createRegion)
 
-
+//@ Route: /api/region/:id_region
 router.route('/:id_region')
-    //consultar region
+
+    //ver region (getRegion)
+    // Access: public
     .get(getRegion)
 
+    //Eliminar Region
+    // Access: private
+    .delete(deleteRegion)
 
-router.route('/:id_region/ciudades')
-    //consultar region
+
+//@ Route: /api/region/:id_region/cities
+router.route('/:id_region/cities')
+
+    //Ver ciudades por region (getCiudades)
+    // Access: public
     .get(getCiudades)
 
+    //Añadir ciudad de region (createCiudad)
+    // Access: public
     .post(createCiudad)
-
-
-
-router.route('/:id_region/:id_ciudad')
-    //consultar region
-    .get(getCiudad)
 
 
 module.exports = router;

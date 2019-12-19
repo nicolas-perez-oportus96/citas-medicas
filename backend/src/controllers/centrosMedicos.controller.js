@@ -7,13 +7,13 @@ const cmsCtrl = {};
 //FUNCIONES
 
 //Consultar Centros medicos
-cmsCtrl.getCMS = async(req, res) => {
+cmsCtrl.getCMS = async (req, res) => {
     const cms = await CentroMedico.find();
     res.json(cms);
 };
 
 //Crear nuevo centro medico (register)
-cmsCtrl.registerCM = async(req, res) => {
+cmsCtrl.registerCM = async (req, res) => {
     const { rut_admin, password, nombre_cm, ubicacion, direccion, telefono, correo } = req.body;
 
     //validacion simple
@@ -64,9 +64,9 @@ cmsCtrl.registerCM = async(req, res) => {
 };
 
 //consultar centro medico (por id)
-cmsCtrl.getCM = async(req, res) => {
+cmsCtrl.getCM = async (req, res) => {
     try {
-        const centroMedico = await CentroMedico.findById(req.params.id)
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
         res.json(centroMedico)
     } catch (e) {
         res.status(204).send(); //Centro Medico no encontrado
@@ -75,7 +75,7 @@ cmsCtrl.getCM = async(req, res) => {
 
 
 
-cmsCtrl.updateCM = async(req, res) => {
+cmsCtrl.updateCM = async (req, res) => {
     var password = req.body.password
     const { rut_admin, nombre_cm, direccion, telefono, correo } = req.body;
 
@@ -88,17 +88,21 @@ cmsCtrl.updateCM = async(req, res) => {
 
     //BCRYPT: rehash de nueva contraseña
     await bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, async(err, hash) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
             password = hash;
-            await CentroMedico.findOneAndUpdate({ _id: req.params.id }, {
-                rut_admin,
-                password,
-                nombre_cm,
-                direccion,
-                telefono,
-                correo
-            });
-            res.json({ message: 'Centro medico modificado' });
+            try {
+                await CentroMedico.findOneAndUpdate({ _id: req.params.id_cm }, {
+                    rut_admin,
+                    password,
+                    nombre_cm,
+                    direccion,
+                    telefono,
+                    correo
+                });
+                res.json({ message: 'Centro medico modificado' });
+            } catch (e) {
+                res.status(404).send()
+            }
         })
     })
 
@@ -106,9 +110,13 @@ cmsCtrl.updateCM = async(req, res) => {
 
 //Eliminar Centro Medico
 
-cmsCtrl.deleteCM = async(req, res) => {
-    await CentroMedico.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Centro medico eliminado' })
+cmsCtrl.deleteCM = async (req, res) => {
+    try {
+        await CentroMedico.findByIdAndDelete(req.params.id_cm);
+        res.json({ message: 'Centro medico eliminado' })
+    } catch (e) {
+        res.status(404).send()
+    }
 }
 
 

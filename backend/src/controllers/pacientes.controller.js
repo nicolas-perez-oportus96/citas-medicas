@@ -7,13 +7,13 @@ const pacientesCtrl = {};
 //FUNCIONES
 
 //Consultar pacientes
-pacientesCtrl.getPacientes = async(req, res) => {
+pacientesCtrl.getPacientes = async (req, res) => {
     const pacientes = await Paciente.find();
     res.json(pacientes);
 };
 
 //Crear nuevo paciente (Register)
-pacientesCtrl.registerPaciente = async(req, res) => {
+pacientesCtrl.registerPaciente = async (req, res) => {
     const { rut, password, nombres, apellidos, fecha_nacimiento, ubicacion, telefono, correo } = req.body;
 
     //Validacion simple
@@ -65,9 +65,9 @@ pacientesCtrl.registerPaciente = async(req, res) => {
 };
 
 //Consultar paciente (por id)
-pacientesCtrl.getPaciente = async(req, res) => {
+pacientesCtrl.getPaciente = async (req, res) => {
     try {
-        const paciente = await Paciente.findById(req.params.id)
+        const paciente = await Paciente.findById(req.params.id_paciente)
         res.json(paciente);
     } catch (e) {
         res.status(204).send(); //Paciente no encontrado
@@ -76,7 +76,7 @@ pacientesCtrl.getPaciente = async(req, res) => {
 
 
 //Actualizar datos del paciente
-pacientesCtrl.updatePaciente = async(req, res) => {
+pacientesCtrl.updatePaciente = async (req, res) => {
     var password = req.body.password
     const { rut, nombres, apellidos, fecha_nacimiento, ubicacion, telefono, correo } = req.body;
 
@@ -89,27 +89,35 @@ pacientesCtrl.updatePaciente = async(req, res) => {
 
     // update it with hash
     await bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, async(err, hash) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
             password = hash;
-            await Paciente.findOneAndUpdate({ _id: req.params.id }, {
-                rut,
-                password,
-                nombres,
-                apellidos,
-                fecha_nacimiento,
-                ubicacion,
-                telefono,
-                correo
-            });
-            res.json({ message: 'Paciente Modificado' });
+            try {
+                await Paciente.findOneAndUpdate({ _id: req.params.id_paciente }, {
+                    rut,
+                    password,
+                    nombres,
+                    apellidos,
+                    fecha_nacimiento,
+                    ubicacion,
+                    telefono,
+                    correo
+                });
+                res.json({ message: 'Paciente Modificado' });
+            } catch (e) {
+                res.status(404).send()
+            }
         });
     });
 };
 
 //Eliminar paciente
-pacientesCtrl.deletePaciente = async(req, res) => {
-    await Paciente.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Paciente Eliminado' });
+pacientesCtrl.deletePaciente = async (req, res) => {
+    try {
+        await Paciente.findByIdAndDelete(req.params.id_paciente);
+        res.json({ message: 'Paciente Eliminado' });
+    } catch (e) {
+        res.status(404).send()
+    }
 };
 
 module.exports = pacientesCtrl;
