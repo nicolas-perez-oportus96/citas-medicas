@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 
 const RegionSchema = require('./schemes/Region.schema')
 
-//Schema de citas //no utilizado aun
+//Schema de citas
 const CitaSchema = new Schema({
     id_paciente: {
         type: String,
@@ -17,11 +17,15 @@ const CitaSchema = new Schema({
         type: String,
         required: true
     }
-}, {
-    timestamps: true
+});
+
+//Schema de areas medicas
+const AreaMedicaSchema = new Schema({
+    nombre: String
 });
 
 
+//Schema de centro medico
 const CmSchema = new Schema({
     rut_admin: {
         type: String,
@@ -47,6 +51,7 @@ const CmSchema = new Schema({
     correo: {
         type: String,
     },
+    areasMedicas: [AreaMedicaSchema]
 })
 
 module.exports = model('CentroMedico', CmSchema);

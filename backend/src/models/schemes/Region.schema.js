@@ -22,6 +22,6 @@ const RegionSchema = new Schema({
             required: true,
         }
     }
-}, { autoIndex: false });
+}, { _id: false });
 
 module.exports = RegionSchema;

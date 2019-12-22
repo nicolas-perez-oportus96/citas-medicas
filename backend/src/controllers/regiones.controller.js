@@ -6,13 +6,13 @@ const regionesCtrl = {};
 //FUNCIONES
 
 //Consultar regiones
-regionesCtrl.getRegiones = async (req, res) => {
+regionesCtrl.getRegiones = async(req, res) => {
     const regiones = await Region.find();
     res.json(regiones);
 };
 
 //Crear nueva Region
-regionesCtrl.createRegion = async (req, res) => {
+regionesCtrl.createRegion = async(req, res) => {
     const { nombre, ciudad } = req.body;
 
     //validacion simple 
@@ -41,7 +41,7 @@ regionesCtrl.createRegion = async (req, res) => {
 
 
 //Consultar una region 
-regionesCtrl.getRegion = async (req, res) => {
+regionesCtrl.getRegion = async(req, res) => {
     try {
         const region = await Region.findById(req.params.id_region)
         res.json(region)
@@ -51,7 +51,7 @@ regionesCtrl.getRegion = async (req, res) => {
 }
 
 ///Consultar ciudades de una region
-regionesCtrl.getCiudades = async (req, res) => {
+regionesCtrl.getCiudades = async(req, res) => {
     try {
         const region = await Region.findById(req.params.id_region)
         res.json(region.ciudad)
@@ -61,14 +61,14 @@ regionesCtrl.getCiudades = async (req, res) => {
 }
 
 //agregar una ciudad a una region
-regionesCtrl.createCiudad = async (req, res) => {
+regionesCtrl.createCiudad = async(req, res) => {
     try {
         const region = await Region.findById(req.params.id_region)
         region.ciudad.push(req.body.ciudad)
         var nuevaCiudad = region.ciudad[0];
         nuevaCiudad.isNew;
 
-        await region.save(function (err) {
+        await region.save(function(err) {
             if (err) return handleError(err)
             res.json({
                 message: 'Ciudad agregada'
@@ -83,7 +83,7 @@ regionesCtrl.createCiudad = async (req, res) => {
 
 
 //Eliminar Region
-regionesCtrl.deleteRegion = async (req, res) => {
+regionesCtrl.deleteRegion = async(req, res) => {
     try {
         await Region.findByIdAndDelete(req.params.id_region);
         res.json({ message: 'Region Eliminada' });

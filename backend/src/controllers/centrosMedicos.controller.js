@@ -7,13 +7,13 @@ const cmsCtrl = {};
 //FUNCIONES
 
 //Consultar Centros medicos
-cmsCtrl.getCMS = async (req, res) => {
+cmsCtrl.getCMS = async(req, res) => {
     const cms = await CentroMedico.find();
     res.json(cms);
 };
 
 //Crear nuevo centro medico (register)
-cmsCtrl.registerCM = async (req, res) => {
+cmsCtrl.registerCM = async(req, res) => {
     const { rut_admin, password, nombre_cm, ubicacion, direccion, telefono, correo } = req.body;
 
     //validacion simple
@@ -36,7 +36,8 @@ cmsCtrl.registerCM = async (req, res) => {
                 ubicacion,
                 direccion,
                 telefono,
-                correo
+                correo,
+                areasMedicas: []
             });
 
             //BCRYPT: generando Salt y Hash para password
@@ -54,7 +55,8 @@ cmsCtrl.registerCM = async (req, res) => {
                                     ubicacion: centroMedico.ubicacion,
                                     direccion: centroMedico.direccion,
                                     telefono: centroMedico.telefono,
-                                    correo: centroMedico.correo
+                                    correo: centroMedico.correo,
+                                    areasMedicas: centroMedico.areasMedicas
                                 }
                             });
                         });
@@ -64,7 +66,7 @@ cmsCtrl.registerCM = async (req, res) => {
 };
 
 //consultar centro medico (por id)
-cmsCtrl.getCM = async (req, res) => {
+cmsCtrl.getCM = async(req, res) => {
     try {
         const centroMedico = await CentroMedico.findById(req.params.id_cm)
         res.json(centroMedico)
@@ -74,8 +76,8 @@ cmsCtrl.getCM = async (req, res) => {
 }
 
 
-
-cmsCtrl.updateCM = async (req, res) => {
+//modificar centro medico (por id)
+cmsCtrl.updateCM = async(req, res) => {
     var password = req.body.password
     const { rut_admin, nombre_cm, direccion, telefono, correo } = req.body;
 
@@ -88,7 +90,7 @@ cmsCtrl.updateCM = async (req, res) => {
 
     //BCRYPT: rehash de nueva contraseña
     await bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, async (err, hash) => {
+        bcrypt.hash(password, salt, async(err, hash) => {
             password = hash;
             try {
                 await CentroMedico.findOneAndUpdate({ _id: req.params.id_cm }, {
@@ -109,8 +111,7 @@ cmsCtrl.updateCM = async (req, res) => {
 }
 
 //Eliminar Centro Medico
-
-cmsCtrl.deleteCM = async (req, res) => {
+cmsCtrl.deleteCM = async(req, res) => {
     try {
         await CentroMedico.findByIdAndDelete(req.params.id_cm);
         res.json({ message: 'Centro medico eliminado' })
@@ -119,6 +120,93 @@ cmsCtrl.deleteCM = async (req, res) => {
     }
 }
 
+///Ver areas medicas de un CM
+cmsCtrl.getAreasMedicas = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        res.json(centroMedico.areasMedicas)
+    } catch (e) {
+        res.status(204).send(); //Areasmedicas no encontradas
+    }
+}
+
+//agregar areaMedica a un CM.
+cmsCtrl.createAreaMedica = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        centroMedico.areasMedicas.push(req.body.areaMedica)
+        var nuevaAM = centroMedico.areasMedicas[0];
+        nuevaAM.isNew;
+
+        await centroMedico.save(function(err) {
+            if (err) return handleError(err)
+            res.json({
+                message: 'Area medica agregada'
+            });
+
+        });
+    } catch (e) {
+        res.status(404).send()
+    }
+};
+
+
+///Ver area medica de un CM
+cmsCtrl.getAreaMedica = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        if (!centroMedico) {
+            res.status(204).send(); //centroMedico no encontrado
+        } else {
+            const areaMedica = centroMedico.areasMedicas.id(req.params.id_area)
+            if (!areaMedica) {
+                res.status(204).send(); //centroMedico no encontrado
+            } else {
+                res.json(areaMedica)
+            }
+        }
+    } catch (e) {
+        res.status(204).send(); //Areasmedicas no encontradas
+    }
+}
+
+
+//modificar areaMedica de un CM.
+cmsCtrl.editAreaMedica = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        const areaMedica = centroMedico.areasMedicas.id(req.params.id_area)
+
+        areaMedica.set(req.body);
+
+        await centroMedico.save(function(err) {
+            if (err) return handleError(err)
+            res.json({
+                message: 'Area medica modificada'
+            });
+        });
+    } catch (e) {
+        res.status(404).send()
+    }
+
+};
+
+//eliminar areaMedica de un CM.
+cmsCtrl.deleteAreaMedica = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        centroMedico.areasMedicas.id(req.params.id_area).remove();
+
+        await centroMedico.save(function(err) {
+            if (err) return handleError(err)
+            res.json({
+                message: 'Area medica eliminada'
+            });
+        });
+    } catch (e) {
+        res.status(404).send()
+    }
+}
 
 
 module.exports = cmsCtrl;
