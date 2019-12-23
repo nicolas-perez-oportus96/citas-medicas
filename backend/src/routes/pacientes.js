@@ -4,7 +4,10 @@ const { Router } = require('express');
 const router = Router();
 
 
-const { loginPaciente, getPacientes, getPaciente, registerPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller')
+const { loginPaciente, getPacientes, getPaciente, registerPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller');
+const { createCita, getCitas, getCita, editCita, deleteCita } = require('../controllers/centrosMedicos.controller')
+
+
 
 //@ Route: /api/paciente/
 router.route('/')
@@ -13,9 +16,12 @@ router.route('/')
 // Access: private
 .get(getPacientes)
 
-//Register (registerPaciente)
-// Access: public
-.post(registerPaciente)
+
+//@ Route: /api/paciente/register
+router.route('/register')
+    //Register (registerPaciente)
+    // Access: public
+    .post(registerPaciente)
 
 
 
@@ -37,31 +43,31 @@ router.route('/:id_paciente')
 
 
 //@ Route: /:id_paciente/cm/:id_cm/citas
-router.route('/:id_paciente/cm/:id_cm/citas')
+router.route('/citas/cm/:id_cm/')
 
 //Ver citas
 // Access: private
-.get((req, res, next) => res.send('Ver citas'))
+.get(getCitas)
 
 //Crear cita
 // Access: private
-.post((req, res) => res.send('Crear cita'))
+.post(createCita)
 
 
 
 //@ Route: /api/paciente/:id_paciente/cm/:id_cm/citas/:id_cita
-router.route('/:id_paciente/cm/:id_cm/citas/:id_cita')
+router.route('/citas/cm/:id_cm/:id_cita')
 
 //Ver cita
 // Access: private
-.get((req, res) => res.send('Ver cita'))
+.get(getCita)
 
 //Modificar Cita
 // Access: private
-.put((req, res) => res.send('Modificar Cita'))
+.put(editCita)
 
 //Eliminar Cita
 // Access: private
-.delete((req, res) => res.send('Eliminar Cita'))
+.delete(deleteCita)
 
 module.exports = router;

@@ -1,23 +1,33 @@
 //DATA MODEL para centros medicos
 const { Schema, model } = require('mongoose');
+const timeZone = require('mongoose-timezone');
 
 const RegionSchema = require('./schemes/Region.schema')
 
 //Schema de citas
 const CitaSchema = new Schema({
-    id_paciente: {
-        type: String,
-        required: true
+    paciente: {
+        _id: {
+            type: String
+        },
+        nombre: {
+            type: String
+        }
     },
-    id_area_Atencion: {
-        type: String,
-        required: true
+    areaMedica: {
+        _id: {
+            type: String
+        },
+        nombre: {
+            type: String
+        }
     },
     fecha: {
-        type: String,
-        required: true
+        type: Date
     }
 });
+
+CitaSchema.plugin(timeZone, { paths: ['fecha'] });
 
 //Schema de areas medicas
 const AreaMedicaSchema = new Schema({
@@ -51,7 +61,8 @@ const CmSchema = new Schema({
     correo: {
         type: String,
     },
-    areasMedicas: [AreaMedicaSchema]
+    areasMedicas: [AreaMedicaSchema],
+    citas: [CitaSchema]
 })
 
 module.exports = model('CentroMedico', CmSchema);

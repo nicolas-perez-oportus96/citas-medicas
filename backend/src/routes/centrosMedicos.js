@@ -12,11 +12,13 @@ router.route('/')
 // Access: private
 .get(getCMS)
 
+
+//@ Route: /api/cm/
+router.route('/register')
+
 //Register (registerCM)
 // Access: public
 .post(registerCM);
-
-
 
 //@ Route: /api/cm/:id_cm
 router.route('/:id_cm')

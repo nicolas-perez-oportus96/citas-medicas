@@ -37,7 +37,8 @@ cmsCtrl.registerCM = async(req, res) => {
                 direccion,
                 telefono,
                 correo,
-                areasMedicas: []
+                areasMedicas: [],
+                citas: []
             });
 
             //BCRYPT: generando Salt y Hash para password
@@ -56,7 +57,8 @@ cmsCtrl.registerCM = async(req, res) => {
                                     direccion: centroMedico.direccion,
                                     telefono: centroMedico.telefono,
                                     correo: centroMedico.correo,
-                                    areasMedicas: centroMedico.areasMedicas
+                                    areasMedicas: centroMedico.areasMedicas,
+                                    citas: centroMedico.citas
                                 }
                             });
                         });
@@ -208,5 +210,94 @@ cmsCtrl.deleteAreaMedica = async(req, res) => {
     }
 }
 
+
+//agregar cita a un CM.
+cmsCtrl.createCita = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        centroMedico.citas.push(req.body.cita);
+        var nuevaCita = centroMedico.citas[0];
+        nuevaCita.isNew;
+
+        await centroMedico.save(function(err) {
+            if (err) return handleError(err)
+            res.json({
+                message: 'cita agregada'
+            });
+
+        });
+    } catch (e) {
+        res.status(404).send()
+    }
+};
+
+
+///Ver citas medicas de un CM
+cmsCtrl.getCitas = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        res.json(centroMedico.citas)
+    } catch (e) {
+        res.status(204).send(); //Areasmedicas no encontradas
+    }
+}
+
+
+///Ver cita medica de un CM
+cmsCtrl.getCita = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        if (!centroMedico) {
+            res.status(204).send(); //centroMedico no encontrado
+        } else {
+            const areaMedica = centroMedico.citas.id(req.params.id_cita)
+            if (!areaMedica) {
+                res.status(204).send(); //centroMedico no encontrado
+            } else {
+                res.json(areaMedica)
+            }
+        }
+    } catch (e) {
+        res.status(204).send(); //Areasmedicas no encontradas
+    }
+}
+
+
+//modificar cita medica de un CM.
+cmsCtrl.editCita = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        const cita = centroMedico.citas.id(req.params.id_cita)
+
+        cita.set(req.body);
+
+        await centroMedico.save(function(err) {
+            if (err) return handleError(err)
+            res.json({
+                message: 'Cita medica modificada'
+            });
+        });
+    } catch (e) {
+        res.status(404).send()
+    }
+
+};
+
+//eliminar cita de un CM.
+cmsCtrl.deleteCita = async(req, res) => {
+    try {
+        const centroMedico = await CentroMedico.findById(req.params.id_cm)
+        centroMedico.citas.id(req.params.id_cita).remove();
+
+        await centroMedico.save(function(err) {
+            if (err) return handleError(err)
+            res.json({
+                message: 'Cita eliminada'
+            });
+        });
+    } catch (e) {
+        res.status(404).send()
+    }
+}
 
 module.exports = cmsCtrl;
