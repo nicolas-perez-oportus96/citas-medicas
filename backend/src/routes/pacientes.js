@@ -3,10 +3,9 @@
 const { Router } = require('express');
 const router = Router();
 
-
+//Controllers
 const { loginPaciente, getPacientes, getPaciente, registerPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller');
 const { createCita, getCitas, getCita, editCita, deleteCita } = require('../controllers/centrosMedicos.controller')
-
 
 
 //@ Route: /api/paciente/

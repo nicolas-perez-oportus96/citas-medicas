@@ -1,6 +1,7 @@
 //DATA MODEL para centros medicos
 const { Schema, model } = require('mongoose');
 const timeZone = require('mongoose-timezone');
+const bcrypt = require('bcrypt');
 
 const RegionSchema = require('./schemes/Region.schema')
 
@@ -63,6 +64,14 @@ const CmSchema = new Schema({
     },
     areasMedicas: [AreaMedicaSchema],
     citas: [CitaSchema]
-})
+});
 
+CmSchema.methods.encryptPassword = async(password) => {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+};
+
+CmSchema.methods.validatePassword = function(password) {
+    return bcrypt.compare(password, this.password);
+}
 module.exports = model('CentroMedico', CmSchema);
