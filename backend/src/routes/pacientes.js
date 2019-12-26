@@ -2,71 +2,76 @@
 
 const { Router } = require('express');
 const router = Router();
+const verifyToken = require('../controllers/verifyToken')
 
 //Controllers
 const { loginPaciente, getPacientes, getPaciente, registerPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller');
 const { createCita, getCitas, getCita, editCita, deleteCita } = require('../controllers/centrosMedicos.controller')
 
 
-//@ Route: /api/paciente/
-router.route('/')
-
-//Ver pacientes (getPacientes)
-// Access: private
-.get(getPacientes)
+//@Route: Ver pacientes (getPacientes)
+//  GET /api/paciente/
+//  Access: public (dejar publico para pruebas)
+router.get('/', getPacientes)
 
 
-//@ Route: /api/paciente/register
-router.route('/register')
-    //Register (registerPaciente)
-    // Access: public
-    .post(registerPaciente)
+//@Route: Login
+//  POST /api/paciente/login
+//  Access: public
+router.post('/login', loginPaciente)
 
 
+//@Route: Register
+//  POST /api/paciente/register
+//  Access: public
+router.post('/register', registerPaciente)
 
 
-//@ Route: /api/paciente/:id_paciente
-router.route('/:id_paciente')
-
-//Ver datos personales (getPaciente)
-// Access: private
-.get(getPaciente)
-
-//Modificar datos personales (updatePaciente)
-// Access: private
-.put(updatePaciente)
-
-//Eliminar Paciente (deletePaciente)
-// Access: private
-.delete(deletePaciente)
+//@Route: Ver datos personales
+//  GET /api/paciente/:id_paciente
+//  Access: private 
+router.get('/me/', verifyToken, getPaciente)
 
 
-//@ Route: /:id_paciente/cm/:id_cm/citas
-router.route('/citas/cm/:id_cm/')
-
-//Ver citas
-// Access: private
-.get(getCitas)
-
-//Crear cita
-// Access: private
-.post(createCita)
+//@Route: Modificar datos personales (updatePaciente)
+//  PUT /api/paciente/:id_paciente
+//  Access: private
+router.put('/me/:id_paciente', verifyToken, updatePaciente)
 
 
+//@Route: Eliminar paciente
+//  DELETE /api/paciente/:id_paciente
+//  Access: private (dejar publico para pruebas)
+router.delete('/me/:id_paciente', deletePaciente)
 
-//@ Route: /api/paciente/:id_paciente/cm/:id_cm/citas/:id_cita
-router.route('/citas/cm/:id_cm/:id_cita')
 
-//Ver cita
-// Access: private
-.get(getCita)
+//@Route: Ver citas
+//  GET /:id_paciente/cm/:id_cm/citas
+//  Access: private
+router.get('/me/citas/', (req, res) => res.send('ver citas'))
 
-//Modificar Cita
-// Access: private
-.put(editCita)
 
-//Eliminar Cita
-// Access: private
-.delete(deleteCita)
+//@Route: Crear citas
+//  POST /:id_paciente/cm/:id_cm/citas
+//  Access: private
+router.post('/me/citas/', (req, res) => res.send('crear cita'))
+
+
+//@Route: Ver cita
+//  GET /api/paciente/:id_cita
+//  Access: private
+router.get('/me/citas/:id_cita', (req, res) => res.send('ver cita'))
+
+
+//@Route: Modificar Cita 
+//  PUT /api/paciente/citas/cm/:id_cm/:id_cita
+//  Access: private
+router.put('/me/citas/:id_cita', (req, res) => res.send('editar cita'))
+
+
+//@Route: Eliminar Cita 
+//  DELETE /api/paciente/citas/cm/:id_cm/:id_cita
+//  Access: private
+router.delete('/me/citas/:id_cita', (req, res) => res.send('Eliminar cita'))
 
 module.exports = router;

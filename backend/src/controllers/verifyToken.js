@@ -14,7 +14,9 @@ function verifyToken(req, res, next) {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    req.centroID = decoded.id
+    req.centroID = decoded.centroID
+
+    if (decoded.pacienteID) req.pacienteID = decoded.pacienteID
     next();
 }
 

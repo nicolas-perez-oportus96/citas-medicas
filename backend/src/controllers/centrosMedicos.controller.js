@@ -26,7 +26,7 @@ cmsCtrl.login = async(req, res) => {
         res.status(401).json({ auth: false, message: 'Contraseña incorrecta', token: null })
     }
     //generando token
-    const token = jwt.sign({ id: centroMedico._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ centroID: centroMedico._id }, process.env.JWT_SECRET, {
         expiresIn: 60 * 60
     });
 
@@ -93,7 +93,7 @@ cmsCtrl.getCM = async(req, res) => {
 }
 
 
-//modificar centro medico (por id)
+//Actualizar datos centro medico (por id)
 cmsCtrl.updateCM = async(req, res) => {
     var password = req.body.password
     const { rut_admin, nombre_cm, ubicacion, direccion, telefono, correo } = req.body;
