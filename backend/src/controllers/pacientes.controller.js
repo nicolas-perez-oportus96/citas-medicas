@@ -9,11 +9,12 @@ const pacientesCtrl = {};
 //FUNCIONES
 
 //Iniciar sesion
-pacientesCtrl.loginPaciente = async(req, res) => {
+pacientesCtrl.loginPaciente = async (req, res) => {
     //recibiendo datos de la peticion
     const { rut, password } = req.body
-        //buscando paciente
+    //buscando paciente
     const paciente = await Paciente.findOne({ rut: rut })
+    //validando paciente no encontrado
     if (!paciente) {
         return res.status(404).json('Paciente no registrado')
     }
@@ -40,13 +41,13 @@ pacientesCtrl.loginPaciente = async(req, res) => {
 
 
 //Consultar pacientes
-pacientesCtrl.getPacientes = async(req, res) => {
+pacientesCtrl.getPacientes = async (req, res) => {
     const pacientes = await Paciente.find();
     res.json(pacientes);
 };
 
 //Crear nuevo paciente (Register)
-pacientesCtrl.registerPaciente = async(req, res) => {
+pacientesCtrl.registerPaciente = async (req, res) => {
     const { rut, password, nombres, apellidos, fecha_nacimiento, ubicacion, centroMedico, telefono, correo } = req.body;
 
     //Validacion simple
@@ -56,9 +57,8 @@ pacientesCtrl.registerPaciente = async(req, res) => {
         });
     };
 
-    //Verificando usuario existente
+    //Validando usuario existente
     const paciente = await Paciente.findOne({ rut })
-
     if (paciente) {
         return res.status(401).json('paciente existente')
     } else {
@@ -91,9 +91,10 @@ pacientesCtrl.registerPaciente = async(req, res) => {
 };
 
 //Consultar paciente (por id)
-pacientesCtrl.getPaciente = async(req, res) => {
+pacientesCtrl.getPaciente = async (req, res) => {
     try {
         const paciente = await Paciente.findById(req.pacienteID)
+        //validando paciente no encontrado
         if (!paciente) {
             return res.status(404).send('Paciente no encontrado')
         }
@@ -105,7 +106,7 @@ pacientesCtrl.getPaciente = async(req, res) => {
 
 
 //Actualizar datos del paciente
-pacientesCtrl.updatePaciente = async(req, res) => {
+pacientesCtrl.updatePaciente = async (req, res) => {
     var password = req.body.password
     const { rut, nombres, apellidos, fecha_nacimiento, ubicacion, centroMedico, telefono, correo } = req.body;
     const paciente_id = req.params.id_paciente
@@ -126,7 +127,7 @@ pacientesCtrl.updatePaciente = async(req, res) => {
 
     //BCRYPT: rehash de nueva contraseña
     await bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, async(err, hash) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
             password = hash;
             await Paciente.findByIdAndUpdate(paciente_id, {
                 rut,
@@ -153,7 +154,7 @@ pacientesCtrl.updatePaciente = async(req, res) => {
 };
 
 //Eliminar paciente
-pacientesCtrl.deletePaciente = async(req, res) => {
+pacientesCtrl.deletePaciente = async (req, res) => {
     try {
         await Paciente.findByIdAndDelete(req.params.id_paciente);
         res.json({ message: 'Paciente Eliminado' });

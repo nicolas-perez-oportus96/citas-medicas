@@ -5,7 +5,7 @@ const router = Router();
 const verifyToken = require('../controllers/verifyToken')
 
 //Controllers
-const { loginPaciente, getPacientes, getPaciente, registerPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller');
+const { loginPaciente, registerPaciente, getPacientes, getPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller');
 const { createCita, getCitas, getCita, editCita, deleteCita } = require('../controllers/centrosMedicos.controller')
 
 
@@ -28,49 +28,49 @@ router.post('/register', registerPaciente)
 
 
 //@Route: Ver datos personales
-//  GET /api/paciente/:id_paciente
+//  GET /api/paciente/me/
 //  Access: private 
 router.get('/me/', verifyToken, getPaciente)
 
 
 //@Route: Modificar datos personales (updatePaciente)
-//  PUT /api/paciente/:id_paciente
+//  PUT /api/paciente/me/:id_paciente
 //  Access: private
 router.put('/me/:id_paciente', verifyToken, updatePaciente)
 
 
 //@Route: Eliminar paciente
-//  DELETE /api/paciente/:id_paciente
+//  DELETE /api/paciente/me/:id_paciente
 //  Access: private (dejar publico para pruebas)
 router.delete('/me/:id_paciente', deletePaciente)
 
 
 //@Route: Ver citas
-//  GET /:id_paciente/cm/:id_cm/citas
+//  GET /api/paciente/me/citas
 //  Access: private
 router.get('/me/citas/', (req, res) => res.send('ver citas'))
 
 
 //@Route: Crear citas
-//  POST /:id_paciente/cm/:id_cm/citas
+//  POST /api/paciente/me/citas
 //  Access: private
-router.post('/me/citas/', (req, res) => res.send('crear cita'))
+router.post('/me/citas/', createCita)
 
 
 //@Route: Ver cita
-//  GET /api/paciente/:id_cita
+//  GET /api/paciente/me/citas/:id_cita
 //  Access: private
 router.get('/me/citas/:id_cita', (req, res) => res.send('ver cita'))
 
 
 //@Route: Modificar Cita 
-//  PUT /api/paciente/citas/cm/:id_cm/:id_cita
+//  PUT /api/paciente/me/citas/:id_cita
 //  Access: private
 router.put('/me/citas/:id_cita', (req, res) => res.send('editar cita'))
 
 
 //@Route: Eliminar Cita 
-//  DELETE /api/paciente/citas/cm/:id_cm/:id_cita
+//  DELETE /api/paciente/me/citas/:id_cita
 //  Access: private
 router.delete('/me/citas/:id_cita', (req, res) => res.send('Eliminar cita'))
 
