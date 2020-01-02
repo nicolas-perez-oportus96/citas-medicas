@@ -5,12 +5,17 @@ const router = Router();
 const verifyToken = require('../controllers/verifyToken')
 
 //Controllers
-const { login, getCMS, getCM, registerCM, updateCM, deleteCM, getAreasMedicas, createAreaMedica, getAreaMedica, editAreaMedica, deleteAreaMedica } = require('../controllers/centrosMedicos.controller')
+const { login, getCMS, getCM, registerCM, updateCM, deleteCM, getAreasMedicas, createAreaMedica, getAreaMedica, editAreaMedica, deleteAreaMedica, getCityCMS } = require('../controllers/centrosMedicos.controller')
 
 //@Route: Ver Centros Medicos
 //  GET /api/cm/
 //  Access: private
 router.get('/', getCMS)
+
+//@Route: Ver Centros Medicos por ciudad
+//  GET /api/cm/
+//  Access: private
+router.get('/bycity/:id_ciudad', getCityCMS)
 
 
 //@Route: Iniciar Sesion
@@ -26,13 +31,13 @@ router.post('/register', registerCM)
 
 
 //@Route: Ver datos CM
-//  GET: /api/cm/:id_cm
+//  GET: /api/cm/me
 //  Access: private
 router.get('/me/', verifyToken, getCM)
 
 
 //@Route:  Modificar datos CM
-//  PUT: /api/cm/:id_cm
+//  PUT: /api/cm/me/:id_cm
 //  Access: private
 router.put('/me/:id_cm', verifyToken, updateCM)
 
@@ -44,37 +49,37 @@ router.delete('/:id_cm', deleteCM);
 
 
 //@Route: Ver areas medicas 
-//  GET: /api/cm/:id_cm/areas
+//  GET: /api/cm/me/areas
 //  Access: private
 router.get('/me/areas', verifyToken, getAreasMedicas)
 
 
 //@Route: Crear area medica
-//  POST: /api/cm/:id_cm/areas
+//  POST: /api/cm/me/areas
 //  Access: private
 router.post('/me/areas', verifyToken, createAreaMedica)
 
 
 //@Route: Ver area medica
-//  GET: /api/cm/:id_cm/areas/:id_area 
+//  GET: /api/cm/me/areas/:id_area 
 //  Access: private
 router.get('/me/areas/:id_area', verifyToken, getAreaMedica)
 
 
 //@Route: Modificar area medica.
-//  PUT: /api/cm/:id_cm/areas/:id_area 
+//  PUT: /api/cm/me/areas/:id_area 
 //  Access: private
 router.put('/me/areas/:id_area', verifyToken, editAreaMedica)
 
 
 //@Route: Eliminar area medica
-//  DELETE: /api/cm/:id_cm/areas/:id_area 
+//  DELETE: /api/cm/me/areas/:id_area 
 //  Access: private
 router.delete('/me/areas/:id_area', verifyToken, deleteAreaMedica)
 
 
 //@Route: Ver citas de area medica
-//  GET: /api/cm/areas/:id_area/citas 
+//  GET: /api/cm/me/areas/:id_area/citas 
 //  Access: private
 router.get('/me/areas/:id_area/citas', (req, res) => res.send('Ver citas de area medica'))
 

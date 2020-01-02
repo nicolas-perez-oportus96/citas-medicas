@@ -7,7 +7,7 @@ export default class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top ">
                 <Link className="navbar-brand" to="/">
-                    <img src={logo} width="30" height="30" class="d-inline-block align-top mr-1" alt=""></img>
+                    <img src={logo} width="30" height="30" className="d-inline-block align-top mr-1" alt=""></img>
                     Sistema de Horas Medicas
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@ export default class Navbar extends Component {
 
                     <form className="form-inline my-2 my-lg-0">
                         <div className="botones">
-                            <Link className="btn btn-outline-primary my-2 my-sm-0" to="/login" type="submit">Iniciar Sesion</Link>
+                            <Link className="btn btn-outline-primary my-2 my-sm-0 mr-2" to="/login" type="submit">Iniciar Sesion</Link>
                             <Link className="btn btn-outline-success my-2 my-sm-0" to="/register" type="submit">Registarse</Link>
                         </div>
                     </form>

@@ -324,4 +324,10 @@ cmsCtrl.deleteCita = async (req, res) => {
     }
 }
 
+//ver centros medicos por ciudad
+cmsCtrl.getCityCMS = async (req, res) => {
+    const centrosMedicos = await CentroMedico.find({ "ubicacion.ciudad._id": req.params.id_ciudad }, 'nombre_cm')
+    return res.json(centrosMedicos)
+}
+
 module.exports = cmsCtrl;

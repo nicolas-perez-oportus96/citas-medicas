@@ -36,8 +36,8 @@ export default class HomePage extends Component {
                         <div className="card shadow p-3 mb-5 bg-white rounded" style={{ width: '18rem' }}>
                             <img src={card2} className="card-img-top" alt="..."></img>
                             <div className="card-body">
-                                <h5 class="card-title">Escritorio personal</h5>
-                                <p class="card-text">Acceso a un escritorio personalizado con sus citas medicas e informacion
+                                <h5 className="card-title">Escritorio personal</h5>
+                                <p className="card-text">Acceso a un escritorio personalizado con sus citas medicas e informacion
                         personal.</p>
                             </div>
                         </div>
@@ -45,8 +45,8 @@ export default class HomePage extends Component {
                         <div className="card shadow p-3 mb-5 bg-white rounded" style={{ width: '18rem' }}>
                             <img src={card3} className="card-img-top" alt="..."></img>
                             <div className="card-body">
-                                <h5 class="card-title">Diseño intuitivo</h5>
-                                <p class="card-text">Esta aplicacion web fue diseñada aplicando estandares de diseño que permiten un
+                                <h5 className="card-title">Diseño intuitivo</h5>
+                                <p className="card-text">Esta aplicacion web fue diseñada aplicando estandares de diseño que permiten un
                         facil entendimiento de su interfaz.</p>
                             </div>
                         </div>
