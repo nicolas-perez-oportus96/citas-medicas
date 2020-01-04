@@ -9,7 +9,7 @@ export default class Login extends Component {
         return (
             <div className="signIn">
                 <div className="container">
-                    <div className="card border-1 shadow bg-white rounded ">
+                    <div className="card border-1 shadow bg-white rounded mt-2">
                         <div className="card-body p-5">
                             <h1 className="font-weight-light">Iniciar Sesion</h1>
                             <br />
