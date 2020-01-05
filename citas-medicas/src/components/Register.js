@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import axios from 'axios';
@@ -14,6 +13,7 @@ export default class Register extends Component {
         ciudades: [],
         centrosMedicos: [],
         rut: '',
+        rut_admin: '',
         password: '',
         nombres: '',
         apellidos: '',
@@ -22,16 +22,16 @@ export default class Register extends Component {
         idCiudad: '',
         ciudad: '',
         direccion: '',
-        idCentroMedico:'',
+        idCentroMedico: '',
         centroMedico: '',
         telefono: '',
-        email: ''
+        email: '',
+        nombre_cm: ''
     }
 
-    
     async componentDidMount() {
         const res = await axios.get('http://localhost:4000/api/region/')
-        this.setState({ 
+        this.setState({
             regiones: res.data,
             idRegion: res.data[0]._id,
             region: res.data[0].nombre
@@ -48,26 +48,41 @@ export default class Register extends Component {
         this.setState({ centrosMedicos: res.data })
     }
 
+    notification(titulo, mensaje, tipo) {
+        store.addNotification({
+            title: titulo,
+            message: mensaje,
+            type: tipo,
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: true
+            }
+        });
+    }
 
     onSubmitPaciente = async e => {
         e.preventDefault()
-        const res = await axios.post('http://localhost:4000/api/paciente/register',{
+        const res = await axios.post('http://localhost:4000/api/paciente/register', {
             rut: this.state.rut,
             password: this.state.password,
             nombres: this.state.nombres,
             apellidos: this.state.apellidos,
             fecha_nacimiento: this.state.fecha_nacimiento,
-            ubicacion:{
-                region:{
+            ubicacion: {
+                region: {
                     _id: this.state.idRegion,
                     nombre: this.state.region
                 },
-                ciudad:{
+                ciudad: {
                     _id: this.state.idCiudad,
                     nombre: this.state.ciudad
                 }
             },
-            centroMedico:{
+            centroMedico: {
                 id: this.state.idCentroMedico,
                 nombre: this.state.centroMedico
             },
@@ -86,10 +101,10 @@ export default class Register extends Component {
                 animationIn: ["animated", "fadeIn"],
                 animationOut: ["animated", "fadeOut"],
                 dismiss: {
-                  duration: 5000,
-                  onScreen: true
+                    duration: 5000,
+                    onScreen: true
                 }
-              });
+            });
         } else {
             store.addNotification({
                 title: res.data.title,
@@ -100,22 +115,47 @@ export default class Register extends Component {
                 animationIn: ["animated", "fadeIn"],
                 animationOut: ["animated", "fadeOut"],
                 dismiss: {
-                  duration: 5000,
-                  onScreen: true
+                    duration: 5000,
+                    onScreen: true
                 }
             });
         }
     }
 
-    onSubmitCM = e => {
+    onSubmitCM = async e => {
+        console.log(this.state)
         e.preventDefault()
+        const res = await axios.post('http://localhost:4000/api/cm/register', {
+            rut_admin: this.state.rut_admin,
+            password: this.state.password,
+            nombre_cm: this.state.nombre_cm,
+            ubicacion: {
+                region: {
+                    _id: this.state.idRegion,
+                    nombre: this.state.region
+                },
+                ciudad: {
+                    _id: this.state.idCiudad,
+                    nombre: this.state.ciudad
+                }
+            },
+            direccion: this.state.direccion,
+            telefono: this.state.telefono,
+            correo: this.state.email
+        })
+
+        if (res.data.auth) {
+            this.notification(res.data.title, res.data.message, "success")
+        } else {
+            this.notification(res.data.title, res.data.message, "warning")
+        }
     }
 
     onInputChange = e => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-    onSelectRegion = e =>{
+    onSelectRegion = e => {
         const selectedIndex = e.target.options.selectedIndex;
         this.setState({
             idRegion: e.target.options[selectedIndex].getAttribute('id'),
@@ -123,7 +163,7 @@ export default class Register extends Component {
         })
     }
 
-    onSelectCiudad = e =>{
+    onSelectCiudad = e => {
         const selectedIndex = e.target.options.selectedIndex;
         this.setState({
             idCiudad: e.target.options[selectedIndex].getAttribute('id'),
@@ -131,7 +171,7 @@ export default class Register extends Component {
         })
     }
 
-    onSelectCM = e =>{
+    onSelectCM = e => {
         const selectedIndex = e.target.options.selectedIndex;
         this.setState({
             idCentroMedico: e.target.options[selectedIndex].getAttribute('id'),
@@ -182,13 +222,13 @@ export default class Register extends Component {
                                         <div className="form-row">
                                             <div className="col-md-12 mb-3">
                                                 <label htmlFor="dpFecNacimientoP">Fecha de nacimiento</label>
-                                                <input type="date" className="form-control" id="dpFecNacimientoP" name="fecha_nacimiento"placeholder="Juan Andrés" onChange={this.onInputChange} required></input>
+                                                <input type="date" className="form-control" id="dpFecNacimientoP" name="fecha_nacimiento" placeholder="Juan Andrés" onChange={this.onInputChange} required></input>
                                             </div>
                                         </div>
                                         <div className="form-row">
                                             <div className="col-md-12 mb-3">
                                                 <label htmlFor="txtPassP2">Contraseña</label>
-                                                <input type="password" className="form-control" name="password" id="txtPassP2" placeholder="**********"  onChange={this.onInputChange} required></input>
+                                                <input type="password" className="form-control" name="password" id="txtPassP2" placeholder="**********" onChange={this.onInputChange} required></input>
                                             </div>
                                         </div>
                                     </div>
@@ -202,21 +242,21 @@ export default class Register extends Component {
                                                 <label htmlFor="cbxRegionP">Region</label>
                                                 <select className="form-control" name="region" onChange={this.onSelectRegion} id="cbxRegionP" >
                                                     <option value="" >Seleccione Region</option>
-                                                        {
-                                                            this.state.regiones.map(region =>
-                                                                <option
-                                                                    id={region._id}
-                                                                    key={region._id}
-                                                                    onClick={() => this.cargarCiudades(region._id)}>
-                                                                    {region.nombre}
-                                                                </option>)
-                                                        }
+                                                    {
+                                                        this.state.regiones.map(region =>
+                                                            <option
+                                                                id={region._id}
+                                                                key={region._id}
+                                                                onClick={() => this.cargarCiudades(region._id)}>
+                                                                {region.nombre}
+                                                            </option>)
+                                                    }
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <label htmlFor="cbxCiudadP">Ciudad</label>
-                                                <select className="form-control"  onChange={this.onSelectCiudad} name="ciudad" id="cbxCiudadP">
-                                                <option value="" >Seleccione Ciudad</option>
+                                                <select className="form-control" onChange={this.onSelectCiudad} name="ciudad" id="cbxCiudadP">
+                                                    <option value="" >Seleccione Ciudad</option>
                                                     {
                                                         this.state.ciudades.map(ciudad =>
                                                             <option
@@ -241,7 +281,7 @@ export default class Register extends Component {
                                             <div className="col-md-12 mb-3">
                                                 <label htmlFor="cbxCMP">Centro de atencion medica</label>
                                                 <select className="form-control" name="centroMedico" onChange={this.onSelectCM} id="cbxCMP">
-                                                <option value="">Seleccione Centro Medico</option>
+                                                    <option value="">Seleccione Centro Medico</option>
                                                     {
                                                         this.state.centrosMedicos.map(centro =>
                                                             <option
@@ -294,40 +334,36 @@ export default class Register extends Component {
                                     <h5 className="card-header">Informacion de Centro de Atencion Medica</h5>
                                     <div className="card-body">
                                         <div className="form-row">
-                                            <div className="col-md-12 mb-3">
+                                            <div className="col-md-6 mb-3">
                                                 <label htmlFor="txtRUTCM">RUT Administrador de Centro Medico</label>
-                                                <input type="text" className="form-control" id="txtRUTCM" placeholder="192661544" required></input>
+                                                <input type="text" className="form-control" id="txtRUTCM" name="rut_admin" placeholder="192661544" onChange={this.onInputChange} required></input>
                                             </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label htmlFor="txtPassCM">Contraseña</label>
+                                                <input type="password" className="form-control" id="txtPassCM" name="password" placeholder="**********" onChange={this.onInputChange} required></input>
+                                            </div>
+
                                         </div>
                                         <div className="form-row">
                                             <div className="col-md-12 mb-3">
-                                                <label htmlFor="txtNombreCM">Nombre del Centro de Atencion Medica</label>
-                                                <input type="text" className="form-control" id="txtNombreCM" placeholder="Juan Andrés" required></input>
+                                                <label htmlFor="txtNombreCM">Nombre Centro Medico</label>
+                                                <input type="text" className="form-control" id="txtNombreCM" name="nombre_cm" placeholder="Juan Andrés" onChange={this.onInputChange} required></input>
                                             </div>
                                         </div>
 
                                         <div className="form-row">
                                             <div className="col-md-6 mb-3">
                                                 <label htmlFor="txtEmailCM">Correo Electronico</label>
-                                                <input type="text" className="form-control" id="txtEmailCM" placeholder="example@example.cl" required></input>
+                                                <input type="text" className="form-control" id="txtEmailCM" name="email" placeholder="example@example.cl" onChange={this.onInputChange} required></input>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <label htmlFor="txtTelCM">Telefono</label>
-                                                <input type="number" className="form-control" id="txtTelCM" placeholder="912345678" required></input>
+                                                <input type="number" className="form-control" id="txtTelCM" name="telefono" placeholder="912345678" onChange={this.onInputChange} required></input>
                                             </div>
                                         </div>
 
-                                        <div className="form-row">
-                                            <div className="col-md-6 mb-3">
-                                                <label htmlFor="txtPassCM">Contraseña</label>
-                                                <input type="password" className="form-control" id="txtPassCM" placeholder="**********" required></input>
-                                            </div>
 
-                                            <div className="col-md-6 mb-3">
-                                                <label htmlFor="txtValPassCM">Repite contraseña</label>
-                                                <input type="password" className="form-control" id="txtValPassCM" placeholder="**********" required></input>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -337,10 +373,12 @@ export default class Register extends Component {
                                         <div className="form-row">
                                             <div className="col-md-6 mb-3">
                                                 <label htmlFor="cbxRegionCM">Region</label>
-                                                <select className="form-control" id="cbxRegionCM">
+                                                <select className="form-control" name="region" id="cbxRegionCM" onChange={this.onSelectRegion}>
+                                                    <option value=""  >Seleccione Region</option>
                                                     {
                                                         this.state.regiones.map(region =>
                                                             <option
+                                                                id={region._id}
                                                                 key={region._id}
                                                                 onClick={() => this.cargarCiudades(region._id)}>
                                                                 {region.nombre}
@@ -350,11 +388,14 @@ export default class Register extends Component {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <label htmlFor="cbxCiudadCM">Ciudad</label>
-                                                <select className="form-control" id="cbxCiudadCM">
+                                                <select className="form-control" name="ciudad" id="cbxCiudadCM" onChange={this.onSelectCiudad}>
+                                                    <option value="" >Seleccione Ciudad</option>
                                                     {
                                                         this.state.ciudades.map(ciudad =>
                                                             <option
-                                                                key={ciudad._id}>
+                                                                key={ciudad._id}
+                                                                id={ciudad._id}
+                                                                onClick={() => this.cargarCMs(ciudad._id)}>
                                                                 {ciudad.nombre}
                                                             </option>)
                                                     }
@@ -365,7 +406,7 @@ export default class Register extends Component {
                                         <div className="form-row">
                                             <div className="col-md-12 mb-3">
                                                 <label htmlFor="txtDireccionCM">Dirección</label>
-                                                <input type="text" className="form-control" id="txtDireccionCM" placeholder="Av Las flores 111, Poblacion El Bosque" required></input>
+                                                <input type="text" className="form-control" id="txtDireccionCM" name="direccion" placeholder="Av Las flores 111, Poblacion El Bosque" onChange={this.onInputChange} required></input>
                                             </div>
                                         </div>
 
@@ -379,12 +420,12 @@ export default class Register extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-outline-success btn-lg btn-block" >Registrar Centro Medico</button>
+                                <button type="submit" onSubmit={this.onSubmitCM} className="btn btn-outline-success btn-lg btn-block" >Registrar Centro Medico</button>
                             </form>
                         </TabPanel>
                     </Tabs>
                 </div>
-            </div>
+            </div >
         )
     }
 }

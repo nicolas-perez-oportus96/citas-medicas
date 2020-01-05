@@ -54,7 +54,7 @@ cmsCtrl.registerCM = async (req, res) => {
     const centroMedico = await CentroMedico.findOne({ rut_admin })
 
     if (centroMedico) {
-        return res.status(401).json('Usuario existente')
+        return res.json({ title: "Registro no finalizado.", message: 'Centro medico ya registrado. Intente iniciar sesion.', auth: false })
     } else {
         const newCentroMedico = new CentroMedico({
             rut_admin,
@@ -74,7 +74,7 @@ cmsCtrl.registerCM = async (req, res) => {
         const token = jwt.sign({ id: newCentroMedico._id }, process.env.JWT_SECRET, {
             expiresIn: 60 * 60
         })
-        res.json({ message: 'CM creado', auth: true, token })
+        res.json({ title: "Registro completado!", message: 'El registro del centro de atencion medica ha sido completado exitosamente. Ya puedes iniciar sesion.', auth: true, token })
     }
 };
 
