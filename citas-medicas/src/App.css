@@ -1,3 +1,17 @@
+hr { 
+    display: block;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+    color: dimgrey;
+}
+
+
+
 .jumbotron {
     background-size: cover;
     background-repeat: no-repeat;
@@ -6,13 +20,26 @@
     color: white;
 }
 
-.signIn {
-    height: 100vh;
+.signInComponent {
+    height: 94.1vh;
     background: url('./img/jumbo.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+}
+
+.signInCard {
+    max-width: 50rem;
+    padding-top: 3rem;
+}
+
+.signInlabel{
+    width: 130px;
+}
+
+.userToggle{
+    width: 19rem;
 }
 
 .site-footer {
