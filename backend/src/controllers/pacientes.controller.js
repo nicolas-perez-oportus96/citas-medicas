@@ -16,7 +16,9 @@ pacientesCtrl.loginPaciente = async (req, res) => {
     const paciente = await Paciente.findOne({ rut: rut })
     //validando paciente no encontrado
     if (!paciente) {
-        return res.status(404).json('Paciente no registrado')
+        return res.json({
+            message: 'Paciente no registrado'
+        });
     }
 
     //validando password
@@ -60,7 +62,9 @@ pacientesCtrl.registerPaciente = async (req, res) => {
     //Validando usuario existente
     const paciente = await Paciente.findOne({ rut })
     if (paciente) {
-        return res.status(401).json('paciente existente')
+        return res.json({
+            message: 'Usuario ya existente'
+        });
     } else {
         const newPaciente = new Paciente({
             rut,
@@ -84,7 +88,7 @@ pacientesCtrl.registerPaciente = async (req, res) => {
         });
         res.json({
             auth: true,
-            message: 'Paciente creado iniciada',
+            message: 'Paciente registrado exitosamente! Ya puedes iniciar sesion.',
             token
         })
     }

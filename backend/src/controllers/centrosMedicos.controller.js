@@ -17,13 +17,16 @@ cmsCtrl.login = async (req, res) => {
     //buscando usuario
     const centroMedico = await CentroMedico.findOne({ rut_admin: rut_admin })
     if (!centroMedico) {
-        return res.status(404).json('CM no registrado')
+        return res.json({
+            auth: false,
+            message: 'Centro Medico no Registrado'
+        });
     }
 
     //validando password
     const passwordIsValid = await centroMedico.validatePassword(password)
     if (!passwordIsValid) {
-        res.status(401).json({ auth: false, message: 'Contraseña incorrecta', token: null })
+        res.json({ auth: false, message: 'Contraseña incorrecta', token: null })
     }
     //generando token
     const token = jwt.sign({ centroID: centroMedico._id }, process.env.JWT_SECRET, {
