@@ -1,3 +1,4 @@
+
 hr { 
     display: block;
     margin-left: 0.5em;
@@ -35,11 +36,7 @@ hr {
 }
 
 .signInlabel{
-    width: 130px;
-}
-
-.userToggle{
-    width: 19rem;
+    width: 160px;
 }
 
 .site-footer {

@@ -323,7 +323,7 @@ export default class Register extends Component {
                                         </label>
                                     </div>
                                 </div>
-                                <button className="btn btn-outline-success btn-lg btn-block" type="submit">Registrarse</button>
+                                <button className="btn btn-outline-success btn-lg btn-block" onSubmit={this.onSubmitPaciente} type="submit">Registrarse</button>
                             </form>
                         </TabPanel>
 

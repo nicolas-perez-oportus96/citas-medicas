@@ -12,6 +12,7 @@ import NavBar from './components/Navbar'
 import HomePage from './components/HomePage'
 import Register from './components/Register'
 import Login from './components/Login'
+import AdminLogin from './components/AdminLogin'
 import Footer from './components/Footer'
 
 function App() {
@@ -19,14 +20,15 @@ function App() {
     <div className="app-container">
       <ReactNotification />
       <Router>
-      <NavBar />
-      <Route path="/" exact component={HomePage} />
-      <Route path="/register" component={Register} />
-      <Route path="/login" component={Login} />
-      <Footer />
-    </Router>
+        <NavBar />
+        <Route path="/" exact component={HomePage} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/adminlogin" component={AdminLogin} />
+        <Footer />
+      </Router>
     </div>
-   
+
   );
 }
 
