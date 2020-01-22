@@ -3,10 +3,19 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 
 export default class Login extends Component {
-    state = {
-        user: '',
-        password: ''
+    constructor(props){
+        super(props);
+        this.state = {
+            user: '',
+            password: ''
+        };
+
+        this.onInputChange = this.onInputChange.bind(this);
+        this.signIn = this.signIn.bind(this);
     }
+    
+    
+    
 
     onInputChange = e => {
         this.setState({ [e.target.name]: e.target.value })
@@ -15,11 +24,10 @@ export default class Login extends Component {
 
     adminSignIn = async e => {
         e.preventDefault()
-        const res = await axios.post('http://localhost:4000/api/cm/login', {
+        await axios.post('http://localhost:4000/api/cm/login', {
             rut_admin: this.state.user,
             password: this.state.password,
-        })
-        console.log(res)
+        }).then(res => localStorage.setItem('session-token', res.data.token))
     }
 
 

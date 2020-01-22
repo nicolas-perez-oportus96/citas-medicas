@@ -3,25 +3,33 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 
 export default class Login extends Component {
-    state = {
-        user: '',
-        password: ''
+    constructor(props){
+        super(props);
+
+        this.state = {
+            user: '',
+            password: ''
+        };
+        this.onInputChange = this.onInputChange.bind(this);
+        this.signIn = this.signIn.bind(this);
     }
 
     onInputChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-        console.log(this.state)
+        this.setState({ 
+            [e.target.name]: e.target.value 
+        })
     }
 
     signIn = async e => {
-        e.preventDefault()
-        const res = await axios.post('http://localhost:4000/api/paciente/login', {
+        e.preventDefault();
+        await axios.post('http://localhost:4000/api/paciente/login', {
             rut: this.state.user,
             password: this.state.password,
-        })
-        console.log(res)
+        }).then(res => {
+            localStorage.setItem('session-token', res.data.token)
+            this.props.history.push('/escritorio');
+        });
     }
-
 
     render() {
         return (
@@ -36,25 +44,34 @@ export default class Login extends Component {
                                     <div className="input-group-prepend">
                                         <span className="input-group-text signInlabel" id="basic-addon1"> RUT Paciente: </span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="Ejemplo: 11111111-2" name="user" onChange={this.onInputChange}></input>
+                                    <input type="text" className="form-control" placeholder="Ejemplo: 11111111-2" name="user" onChange={this.onInputChange} value={this.state.user}></input>
                                 </div>
-
+    
                                 <div className="input-group mb-3">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text signInlabel" id="basic-addon1">Contraseña:</span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="Ingrese su contraseña" name="password" onChange={this.onInputChange}></input>
+                                    <input type="password" className="form-control" placeholder="Ingrese su contraseña" name="password" onChange={this.onInputChange} value={this.state.password}></input>
                                 </div>
-
+    
                                 <button type="submit" className="btn btn-primary btn-lg btn-block mt-4 mb-2">Iniciar Sesion</button>
-
+    
                                 <small className="text-secondary">Si deseas iniciar sesion como administrador de centro medico, <Link to='/adminlogin'> haz click aqui.</Link></small>
                             </form>
-
+    
                         </div>
                     </div>
                 </div>
             </div>
         )
     }
+
 }
+
+
+
+
+
+
+
+

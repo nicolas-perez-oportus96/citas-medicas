@@ -24,7 +24,7 @@ pacientesCtrl.loginPaciente = async (req, res) => {
     //validando password
     const passwordIsValid = await paciente.validatePassword(password)
     if (!passwordIsValid) {
-        res.status(401).json({
+        res.json({
             auth: false,
             message: 'Contraseña incorrecta',
             token: null
@@ -100,7 +100,8 @@ pacientesCtrl.getPaciente = async (req, res) => {
         const paciente = await Paciente.findById(req.pacienteID)
         //validando paciente no encontrado
         if (!paciente) {
-            return res.status(404).send('Paciente no encontrado')
+            return res.json({
+                message: 'Paciente no encontrado' })
         }
         res.json(paciente);
     } catch (e) {
