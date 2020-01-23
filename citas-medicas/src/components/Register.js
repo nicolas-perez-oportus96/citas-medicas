@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import axios from 'axios';
 
+import NavBar from '../components/Navbar'
 import { store } from 'react-notifications-component';
 
 
@@ -180,9 +181,9 @@ export default class Register extends Component {
     }
 
     render() {
-
         return (
             <div>
+                <NavBar/>
                 <div className="jumbotron jumbotron-fluid shadow mb-5 bg-light rounded">
                     <div className="container">
                         <h1 className="display-4">Registro de usuario</h1>

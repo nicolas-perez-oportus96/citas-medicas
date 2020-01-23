@@ -13,25 +13,25 @@ class AuthComponent extends Component {
     }
 
 
-componentDidMount() {
-    const token = getToken();
-    if(!token) {
-        this.props.history.push('/login');
-    }
-
-    Axios.get('http://localhost:4000/api/paciente/me', {
-        headers: {
-            'x-access-token': token
+    componentDidMount() {
+        const token = getToken();
+        if(!token) {
+            this.props.history.push('/login');
         }
-    }).then(res => this.setState({
-        user: res.data
-    })).catch(err => {
-        localStorage.removeItem('session-token');
-        this.props.history.push('/login');
-    });
 
-    console.log(this.state.user)
-}
+        Axios.get('http://localhost:4000/api/paciente/me', {
+            headers: {
+                'x-access-token': token
+            }
+        }).then(res => this.setState({
+            user: res.data
+        })).catch(err => {
+            localStorage.removeItem('session-token');
+            this.props.history.push('/login');
+        });
+
+        console.log(this.state.user)
+    }
 
     render() {
         if (this.state.user === undefined) {

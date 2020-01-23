@@ -6,9 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 
-
-
-import NavBar from './components/Navbar'
+//components
 import HomePage from './components/HomePage'
 import Register from './components/Register'
 import Login from './components/Login'
@@ -17,13 +15,13 @@ import Footer from './components/Footer'
 
 import AuthComponent from './components/AuthComponent'
 import Dashboard from './components/Dashboard'
+import DatosPaciente from './components/DatosPaciente'
 
 function App() {
   return (
     <div className="app-container">
       <ReactNotification />
       <Router>
-        <NavBar />
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/register" component={Register} />
@@ -32,8 +30,12 @@ function App() {
           <AuthComponent>
             <Route path="/escritorio" component={Dashboard} />
           </AuthComponent>
-          <Footer />
+          
+          <Route path="/escritorio/datos" component={DatosPaciente} />
+
+
         </Switch>
+        <Footer />
       </Router>
     </div>
 

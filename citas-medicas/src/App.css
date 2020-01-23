@@ -30,6 +30,15 @@ hr {
     -o-background-size: cover;
 }
 
+.dashboard {
+    height: 100vh;
+    background: url('./img/jumbo.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
 .signInCard {
     max-width: 50rem;
     padding-top: 3rem;

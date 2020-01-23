@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+
+import NavBar from '../components/Navbar'
 import card1 from '../img/carrusel1.png'
 import card2 from '../img/carrusel2.jpg'
 import card3 from '../img/carrusel3.jpg'
@@ -9,6 +11,7 @@ export default class HomePage extends Component {
     render() {
         return (
             <div>
+                <NavBar/>
                 {/* Jumbotron */}
                 <div className="jumbotron">
                     <div className="container">
