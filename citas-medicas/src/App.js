@@ -16,6 +16,7 @@ import Footer from './components/Footer'
 import AuthComponent from './components/paciente/AuthComponent'
 import Dashboard from './components/paciente/Dashboard'
 import DatosPaciente from './components/paciente/DatosPaciente'
+import NewCita from './components/paciente/NewCita'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <AuthComponent>
             <Route path="/escritorio" component={Dashboard} />
             <Route path="/paciente" component={DatosPaciente} />
+            <Route path="/newCita" component={NewCita} />
           </AuthComponent>
 
         </Switch>

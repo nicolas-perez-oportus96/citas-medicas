@@ -16,24 +16,19 @@ export default class DatosPaciente extends Component {
     
     async componentDidMount(){
         const token = getToken();
-
         const res = await axios.get('http://localhost:4000/api/paciente/me', {
             headers: {
                 'x-access-token': token
             }
         })
-
         this.setState(res.data)
         
         let fecha = new Date(this.state.fecha_nacimiento)
         let fechaString = fecha.toISOString().substr(0, 10)
 
-
         this.setState({
             fecha: fechaString
         })
-
-        console.log(this.state._id)
     }
 
     onInputChange = e => {
@@ -65,8 +60,8 @@ export default class DatosPaciente extends Component {
 
     render() {
         return (
-            <div  className="dashboard">
-                <form onSubmit={this.onSubmitChanges} className="container pt-3">
+            <div className="dashboard">
+                <form onSubmit={this.onSubmitChanges} className="container pt-5">
                     <div className="card mb-3">
                         <h5 className="card-header">Informacion personal</h5>
                         <div className="card-body">

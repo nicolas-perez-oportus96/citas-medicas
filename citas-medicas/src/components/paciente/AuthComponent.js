@@ -55,7 +55,7 @@ class AuthComponent extends Component {
                         <h5><i className="far fa-hospital mr-1"></i> { this.state.user.centroMedico.nombre }  </h5>
                     </div>
                     <div className="botones">
-                        <button type="button" className="btn btn-outline-success" href="/createDate.html"> <i className="fas fa-calendar-week mr-1"></i>Solicitar Cita Medica</button>
+                        <Link type="button" className="btn btn-outline-success" to="/newCita"> <i className="fas fa-calendar-week mr-1"></i>Solicitar Cita Medica</Link>
                         <Link className="btn btn-outline-info my-2 ml-2 my-sm-0" to="/paciente" > <i className="fas fa-info-circle mr-1"></i>Informacion Personal</Link>
                     </div>
                 </nav>
