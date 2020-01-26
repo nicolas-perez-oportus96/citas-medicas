@@ -34,7 +34,6 @@ const PacienteSchema = new Schema({
     },
     fecha_nacimiento: {
         type: Date,
-        required: true
     },
     ubicacion: RegionSchema,
     centroMedico: CentroMedicoSchema,

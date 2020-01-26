@@ -113,15 +113,9 @@ pacientesCtrl.getPaciente = async (req, res) => {
 //Actualizar datos del paciente
 pacientesCtrl.updatePaciente = async (req, res) => {
     var password = req.body.password
-    const { rut, nombres, apellidos, fecha_nacimiento, ubicacion, centroMedico, telefono, correo } = req.body;
+    const { nombres, apellidos, fecha_nacimiento, telefono, correo } = req.body;
     const paciente_id = req.params.id_paciente
 
-    //Validacion simple
-    if (!rut || !password || !nombres || !apellidos || !fecha_nacimiento || !ubicacion || !ubicacion) {
-        return res.json({
-            message: 'Datos faltantes'
-        });
-    };
 
     if (paciente_id != req.pacienteID) {
         return res.status(500).json({
@@ -130,32 +124,30 @@ pacientesCtrl.updatePaciente = async (req, res) => {
         });
     }
 
+    await Paciente.findByIdAndUpdate(paciente_id, {
+        nombres,
+        apellidos,
+        fecha_nacimiento,
+        telefono,
+        correo
+    }, { new: true }, (err, pacienteUpdate) => {
+        if (err) return res.json({ message: 'Request Error' });
+
+        if (!pacienteUpdate) return res.json({ message: 'No se pudo actualizar paciente' })
+
+        return res.status(200).json({
+            message: 'Datos personales modificados exitosamente!',
+            pacienteUpdate
+        });
+    });
+
     //BCRYPT: rehash de nueva contraseña
-    await bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, async (err, hash) => {
-            password = hash;
-            await Paciente.findByIdAndUpdate(paciente_id, {
-                rut,
-                password,
-                nombres,
-                apellidos,
-                fecha_nacimiento,
-                ubicacion,
-                centroMedico,
-                telefono,
-                correo
-            }, { new: true }, (err, pacienteUpdate) => {
-                if (err) return res.status(500).send({ message: 'Request Error' });
-
-                if (!pacienteUpdate) return res.status(404).send({ message: 'No se pudo actualizar paciente' })
-
-                return res.status(200).json({
-                    message: 'Centro medico modificado',
-                    pacienteUpdate
-                });
-            });
-        })
-    })
+    // await bcrypt.genSalt(10, (err, salt) => {
+    //     bcrypt.hash(password, salt, async (err, hash) => {
+    //         password = hash;
+            
+    //     })
+    // })
 };
 
 //Eliminar paciente

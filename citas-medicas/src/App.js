@@ -9,13 +9,14 @@ import 'react-notifications-component/dist/theme.css'
 //components
 import HomePage from './components/HomePage'
 import Register from './components/Register'
-import Login from './components/Login'
-import AdminLogin from './components/AdminLogin'
+import Login from './components/paciente/Login'
+import AdminLogin from './components/admin/AdminLogin'
 import Footer from './components/Footer'
 
-import AuthComponent from './components/AuthComponent'
-import Dashboard from './components/Dashboard'
-import DatosPaciente from './components/DatosPaciente'
+import AuthComponent from './components/paciente/AuthComponent'
+import Dashboard from './components/paciente/Dashboard'
+import DatosPaciente from './components/paciente/DatosPaciente'
+
 
 function App() {
   return (
@@ -29,10 +30,8 @@ function App() {
           <Route path="/adminlogin" component={AdminLogin} />
           <AuthComponent>
             <Route path="/escritorio" component={Dashboard} />
+            <Route path="/paciente" component={DatosPaciente} />
           </AuthComponent>
-          
-          <Route path="/escritorio/datos" component={DatosPaciente} />
-
 
         </Switch>
         <Footer />
