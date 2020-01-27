@@ -156,7 +156,10 @@ cmsCtrl.getAreasMedicas = async (req, res) => {
         const centroMedico = await CentroMedico.findById(req.centroID)
         res.json(centroMedico.areasMedicas)
     } catch (e) {
-        res.status(204).send(); //Areasmedicas no encontradas
+        res.json({
+            status: 0,
+            message: "CM no registra areas medicas"
+        }); //Areasmedicas no encontradas
     }
 }
 
