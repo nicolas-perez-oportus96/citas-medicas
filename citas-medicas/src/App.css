@@ -1,4 +1,10 @@
 
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap');
+
+html{
+    height: 100vh;
+}
+
 hr { 
     display: block;
     margin-left: 0.5em;
@@ -31,7 +37,9 @@ hr {
 }
 
 .dashboard {
-    height: 100vh;
+    padding-top: 3rem;
+    height: 96vh;
+
     background: url('./img/jumbo.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -56,6 +64,19 @@ hr {
     background-color: rgba(11, 3, 3, 0.44);
 }
 
+.bigCalendar-container {
+    height: 30rem;
+    width: auto;
+    border: 2px solid rgba(2,117,216,0.38);
+    border-radius: 7px;
+    padding: 3px;
+}
+
+.cita-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    
+}
 
 /*!Bootstrap Sidebar */
 

@@ -48,7 +48,7 @@ class AuthComponent extends Component {
         return (
             <div>
                  {/* NavBar */}
-                 <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+                 <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between sticky-top">
                     <h5><i className="far fa-user mr-1"></i>Bienvenido { this.state.user.nombres } <button onClick={this.logOut} className="badge badge-pill badge-danger">Cerrar Sesion</button></h5>
 
                     <div className="centroMedico">
