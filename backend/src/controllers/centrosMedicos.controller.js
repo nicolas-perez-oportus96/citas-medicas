@@ -245,8 +245,9 @@ cmsCtrl.deleteAreaMedica = async (req, res) => {
 //agregar cita a un CM.
 cmsCtrl.createCita = async (req, res) => {
     const centroMedico = await CentroMedico.findById(req.centroID)
+    console.log(req.centroID)
     if (!centroMedico) {
-        res.status(404).json({ message: 'Centro medico no encontrado' })
+        res.json({ message: 'Centro medico no encontrado' })
     }
     centroMedico.citas.push(req.body.cita);
     var nuevaCita = centroMedico.citas[0];
@@ -255,6 +256,7 @@ cmsCtrl.createCita = async (req, res) => {
     await centroMedico.save(function (err) {
         if (err) return handleError(err)
         res.json({
+            status: 'ok',
             message: 'cita agregada'
         });
 
@@ -263,7 +265,7 @@ cmsCtrl.createCita = async (req, res) => {
 
 
 ///Ver citas medicas de un CM
-cmsCtrl.getCitas = async (req, res) => {
+cmsCtrl.getCitasPaciente = async (req, res) => {
     try {
         const centroMedico = await CentroMedico.findById(req.centroID)
         res.json(centroMedico.citas)

@@ -90,7 +90,6 @@ export default class Register extends Component {
             telefono: this.state.telefono,
             correo: this.state.email
         })
-        console.log(res.data)
 
         if (res.data.auth) {
             store.addNotification({
@@ -124,7 +123,6 @@ export default class Register extends Component {
     }
 
     onSubmitCM = async e => {
-        console.log(this.state)
         e.preventDefault()
         const res = await axios.post('http://localhost:4000/api/cm/register', {
             rut_admin: this.state.rut_admin,

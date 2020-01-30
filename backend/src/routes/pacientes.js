@@ -6,7 +6,7 @@ const verifyToken = require('../controllers/verifyToken')
 
 //Controllers
 const { loginPaciente, registerPaciente, getPacientes, getPaciente, updatePaciente, deletePaciente } = require('../controllers/pacientes.controller');
-const { createCita, getCitas, getCita, editCita, deleteCita } = require('../controllers/centrosMedicos.controller')
+const { createCita, getCitasPaciente, getCita, editCita, deleteCita } = require('../controllers/centrosMedicos.controller')
 
 
 //@Route: Ver pacientes (getPacientes)
@@ -54,7 +54,7 @@ router.get('/me/citas/', (req, res) => res.send('ver citas'))
 //@Route: Crear citas
 //  POST /api/paciente/me/citas
 //  Access: private
-router.post('/me/citas/', createCita)
+router.post('/me/citas/', verifyToken, createCita)
 
 
 //@Route: Ver cita

@@ -1,34 +1,35 @@
 //DATA MODEL para centros medicos
 const { Schema, model } = require('mongoose');
-const timeZone = require('mongoose-timezone');
 const bcrypt = require('bcrypt');
 
 const RegionSchema = require('./schemes/Region.schema')
+const CitaSchema = require('./schemes/Cita.schema')
+
 
 //Schema de citas
-const CitaSchema = new Schema({
-    paciente: {
-        _id: {
-            type: String
-        },
-        nombre: {
-            type: String
-        }
-    },
-    areaMedica: {
-        _id: {
-            type: String
-        },
-        nombre: {
-            type: String
-        }
-    },
-    fecha: {
-        type: Date
-    }
-});
+// const CitaSchema = new Schema({
+//     paciente: {
+//         _id: {
+//             type: String
+//         },
+//         nombre: {
+//             type: String
+//         }
+//     },
+//     areaMedica: {
+//         _id: {
+//             type: String
+//         },
+//         nombre: {
+//             type: String
+//         }
+//     },
+//     fecha: {
+//         type: Date
+//     }
+// });
 
-CitaSchema.plugin(timeZone, { paths: ['fecha'] });
+// CitaSchema.plugin(timeZone, { paths: ['fecha'] });
 
 //Schema de areas medicas
 const AreaMedicaSchema = new Schema({

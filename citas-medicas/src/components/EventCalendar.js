@@ -21,16 +21,11 @@ const myEventsList= [{
   
 export default class EventCalendar extends Component {
 
-    click = e => {
-      console.log(e)
-    }
+    
 
     selecting = e => {
       return false;
     }
-
-    
-
     render() {
         return (
           <div className="bigCalendar-container">
@@ -52,7 +47,6 @@ export default class EventCalendar extends Component {
               step="60"
               timeslots="1"
               selectable={true}
-              onSelectSlot={this.click}
               onSelecting={this.selecting}
               min={new Date(0, 0, 0, 8, 0, 0)}
               max={new Date(0, 0, 0, 20, 0, 0)}

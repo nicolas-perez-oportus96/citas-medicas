@@ -1,21 +1,50 @@
 //DATA MODEL para citas medicas
 const { Schema } = require('mongoose');
+const timeZone = require('mongoose-timezone');
 
 const CitaSchema = new Schema({
-    id_paciente: {
-        type: String,
+    paciente: {
+        id: {
+            type: String,
+            required: true
+        },
+        rut: {
+            type: String,
+            required: true
+        },
+        nombres: {
+            type: String,
+            required: true
+        },
+        apellidos: {
+            type: String,
+            required: true
+        },
+    },
+    areaMedica:{
+        id: {
+            type: String,
+            required: true
+        },
+        nombre:{
+            type: String,
+            required: true
+        }
+    },
+    title: {
+        type:String,
+        required:true
+    },
+    start: {
+        type: Date,
         required: true
     },
-    id_area_Atencion: {
-        type: String,
-        required: true
-    },
-    fecha: {
-        type: String,
+    end: {
+        type: Date,
         required: true
     }
-}, {
-    timestamps: true
 });
+
+CitaSchema.plugin(timeZone, { paths: ['fecha'] });
 
 module.exports = CitaSchema;

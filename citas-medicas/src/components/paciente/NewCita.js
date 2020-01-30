@@ -2,9 +2,24 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import moment from 'moment'
 import { getToken } from '../../helpers/Token'
 
-import EventCalendar from '../EventCalendar'
+require('react-big-calendar/lib/css/react-big-calendar.css')
+require('moment/locale/es.js');
+const localizer = momentLocalizer(moment);
+const myEventsList= [{
+    title: "today",
+    start: new Date('2020-05-05 10:22:00'),
+    end: new Date('2020-05-05 10:42:00')
+  },
+  {
+    title: "string",
+    start: new Date('2020-05-05 12:22:00'),
+    end: new Date('2020-05-05 13:42:00')
+  }]
+
 
 
 export default class NewCita extends Component {
@@ -12,12 +27,19 @@ export default class NewCita extends Component {
         super(props);
         this.state = {
             areasMedicas: [],
-            areaMedicaSelect: {}
+            areaMedica:{},
+            cita: {
+                start: Date,
+                end: Date,
+            }
         }
 
         this.onSelectChange = this.onSelectChange.bind(this)
+        this.onSelectCita = this.onSelectCita.bind(this)
+        this.onSubmitCita = this.onSubmitCita.bind(this)
     }
 
+    
     async componentDidMount() {
         const token = await getToken();
 
@@ -43,19 +65,57 @@ export default class NewCita extends Component {
 
     onSelectChange = e => {
         const selectedIndex = e.target.options.selectedIndex;
+        const areaMedica = {
+            id: e.target.options[selectedIndex].getAttribute('id'),
+            nombre: e.target.value
+        }
         this.setState({
-            areaMedicaSelect: {
-                id: e.target.options[selectedIndex].getAttribute('id'),
-                nombre: e.target.value
-            }
+            areaMedica: areaMedica
         })
+    }
 
+    selecting = e => {
+        return false;
+    }
+
+    onSelectCita =  e => {
+        this.setState({
+            cita: {
+                start: e.start,
+                end: e.end
+            }
+        }) 
     }
 
     onSubmitCita = async e => {
         e.preventDefault()
         console.log(this.state)
+        const token = getToken();
+
+        const res = await axios.post('http://localhost:4000/api/paciente/me/citas', {
+            cita:{
+                paciente: {
+                    id: this.state._id,
+                    rut: this.state.rut,
+                    nombres: this.state.nombres,
+                    apellidos: this.state.apellidos
+                },
+                areaMedica: this.state.areaMedica,
+                title: 'Cita',
+                start: this.state.cita.start,
+                end: this.state.cita.end
+            }
+        }, {
+            headers: {
+                'x-access-token': token
+            },
+        });
+
+        console.log(res)
+        
     }
+
+
 
 
     render() {
@@ -81,13 +141,30 @@ export default class NewCita extends Component {
                                 </select>
                             </div>
 
-                            <div className="form-group ">
-                               <div className="d-flex flex-column mb-2">
-                                    <label className="cita-label mb-0" for=" date "><i class="far fa-calendar-check mr-2"></i>Seleccione Fecha y Hora</label>
-                                    <small>Haz clic en el dia y hora disponible en la cual desees reservar una cita. </small>
-                               </div>
-                               <EventCalendar/>
-                                
+                            <div className="bigCalendar-container">
+                                <Calendar
+                                    localizer={localizer}
+                                    events={myEventsList}
+                                    startAccessor="start"
+                                    endAccessor="end"
+                                    views={['work_week']}
+                                    defaultView='work_week'
+                                    messages={{
+                                    next: "Siguiente",
+                                    previous: "Anterior",
+                                    today: "Hoy",
+                                    month: "Mes",
+                                    week: "Semana",
+                                    day: "Día"
+                                    }}
+                                    step="60"
+                                    timeslots="1"
+                                    selectable={true}
+                                    onSelectSlot={this.onSelectCita}
+                                    onSelecting={this.selecting}
+                                    min={new Date(0, 0, 0, 8, 0, 0)}
+                                    max={new Date(0, 0, 0, 20, 0, 0)}
+                                />
                             </div>
 
                             <div className="row">
@@ -107,3 +184,4 @@ export default class NewCita extends Component {
         )
     }
 }
+
