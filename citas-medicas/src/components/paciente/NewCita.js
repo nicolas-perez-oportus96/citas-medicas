@@ -115,9 +115,6 @@ export default class NewCita extends Component {
         
     }
 
-
-
-
     render() {
         return (
             <div className="dashboard">
@@ -141,30 +138,38 @@ export default class NewCita extends Component {
                                 </select>
                             </div>
 
-                            <div className="bigCalendar-container">
-                                <Calendar
-                                    localizer={localizer}
-                                    events={myEventsList}
-                                    startAccessor="start"
-                                    endAccessor="end"
-                                    views={['work_week']}
-                                    defaultView='work_week'
-                                    messages={{
-                                    next: "Siguiente",
-                                    previous: "Anterior",
-                                    today: "Hoy",
-                                    month: "Mes",
-                                    week: "Semana",
-                                    day: "Día"
-                                    }}
-                                    step="60"
-                                    timeslots="1"
-                                    selectable={true}
-                                    onSelectSlot={this.onSelectCita}
-                                    onSelecting={this.selecting}
-                                    min={new Date(0, 0, 0, 8, 0, 0)}
-                                    max={new Date(0, 0, 0, 20, 0, 0)}
-                                />
+                            <div className="calendario">
+                                
+                                <div className="d-flex flex-column mb-2">
+                                    <label className="cita-label mb-0" for=" date "><i class="far fa-calendar-check mr-2"></i>Seleccione Fecha y Hora</label>
+                                    <small>Haz clic en el dia y hora disponible en la cual desees reservar una cita. </small>
+                                </div>
+
+                                <div className="bigCalendar-container mb-3">
+                                    <Calendar
+                                        localizer={localizer}
+                                        events={myEventsList}
+                                        startAccessor="start"
+                                        endAccessor="end"
+                                        views={['work_week']}
+                                        defaultView='work_week'
+                                        messages={{
+                                        next: "Siguiente",
+                                        previous: "Anterior",
+                                        today: "Hoy",
+                                        month: "Mes",
+                                        week: "Semana",
+                                        day: "Día"
+                                        }}
+                                        step="60"
+                                        timeslots="1"
+                                        selectable={true}
+                                        onSelectSlot={this.onSelectCita}
+                                        onSelecting={this.selecting}
+                                        min={new Date(0, 0, 0, 8, 0, 0)}
+                                        max={new Date(0, 0, 0, 20, 0, 0)}
+                                    />
+                                </div>
                             </div>
 
                             <div className="row">

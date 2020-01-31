@@ -245,7 +245,6 @@ cmsCtrl.deleteAreaMedica = async (req, res) => {
 //agregar cita a un CM.
 cmsCtrl.createCita = async (req, res) => {
     const centroMedico = await CentroMedico.findById(req.centroID)
-    console.log(req.centroID)
     if (!centroMedico) {
         res.json({ message: 'Centro medico no encontrado' })
     }
@@ -264,14 +263,17 @@ cmsCtrl.createCita = async (req, res) => {
 };
 
 
-///Ver citas medicas de un CM
+///Ver citas medicas de un paciente
 cmsCtrl.getCitasPaciente = async (req, res) => {
-    try {
-        const centroMedico = await CentroMedico.findById(req.centroID)
-        res.json(centroMedico.citas)
-    } catch (e) {
-        res.status(204).send(); //Areasmedicas no encontradas
+    const centroMedico = await CentroMedico.findById(req.centroID);
+    const citas = centroMedico.citas
+    const citasPaciente = []
+    for(i in citas){
+        if (citas[i].paciente.id == req.pacienteID){
+            citasPaciente.push(citas[i])
+        }
     }
+    res.json(citasPaciente)
 }
 
 

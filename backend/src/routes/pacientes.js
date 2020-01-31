@@ -48,7 +48,7 @@ router.delete('/me/:id_paciente', deletePaciente)
 //@Route: Ver citas
 //  GET /api/paciente/me/citas
 //  Access: private
-router.get('/me/citas/', (req, res) => res.send('ver citas'))
+router.get('/me/citas/', verifyToken, getCitasPaciente)
 
 
 //@Route: Crear citas

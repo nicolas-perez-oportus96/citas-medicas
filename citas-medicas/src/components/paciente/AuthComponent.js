@@ -8,7 +8,8 @@ class AuthComponent extends Component {
         super(props);
 
         this.state = {
-            user: undefined
+            user: undefined,
+            citas: []
         }
         this.logOut = this.logOut.bind(this)
     }
@@ -25,11 +26,11 @@ class AuthComponent extends Component {
             }
         }).then(res => this.setState({
             user: res.data
+            
         })).catch(err => {
             localStorage.removeItem('session-token');
             this.props.history.push('/login');
         });
-
     }
 
     logOut() {
