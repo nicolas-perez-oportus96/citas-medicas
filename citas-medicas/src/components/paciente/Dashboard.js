@@ -1,14 +1,24 @@
 import React, { Component } from 'react'
-import {getToken} from '../../helpers/Token'
+import { getToken } from '../../helpers/Token'
 import axios from 'axios'
 const moment = require('moment');
 
 
-export default class Dashboard extends Component {
-    state = { citasPaciente: [] }
 
-    async componentDidMount(){
-        const token = await getToken();
+export default class Dashboard extends Component {
+    state = {
+        citasPaciente: []
+    }
+
+    async componentDidMount() {
+
+        this.getCitas()
+
+        console.log(this.state.citasPaciente)
+    }
+
+    async getCitas() {
+        const token = getToken();
         const res = await axios.get('http://localhost:4000/api/paciente/me/citas', {
             headers: {
                 'x-access-token': token
@@ -17,48 +27,57 @@ export default class Dashboard extends Component {
         this.setState({
             citasPaciente: res.data
         })
+    }
 
+    async deleteCita(id_cita) {
+        const token = getToken();
+        const res = await axios.delete('http://localhost:4000/api/paciente/me/citas/' + id_cita, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+
+        this.getCitas()
         console.log(res.data)
     }
-   
+
 
     render() {
         return (
             <div className="dashboard">
                 {/* Container Citas */}
 
-                <div class="container">
-                    <div class="row">
+                <div className="container">
+                    <div className="row">
                         {/* //rendering citas */}
-                        {this.state.citasPaciente.map(cita =>(
-                            <div class="col-md-4 p-2">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fas fa-calendar-check mr-1"></i>
+                        {this.state.citasPaciente.map(cita => (
+                            <div key={cita._id} className="col-md-4 p-2">
+                                <div className="card">
+                                    <div className="card-header">
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <div className="d-flex align-items-center">
+                                                <i className="fas fa-calendar-check mr-1"></i>
                                                 <h5>{cita.areaMedica.nombre}</h5>
                                             </div>
                                         </div>
                                     </div>
-            
-                                    <div class="card-body">
-                                        <div class="container d-flex justify-content-between">
-                                            <p class=" text-muted"><i class="fas fa-calendar-day mr-1"></i>{moment.parseZone(cita.start).utc().format("LL")} </p>
-                                            <p class=" text-muted"><i class="far fa-clock mr-1"></i>{moment.parseZone(cita.start).utc().format("LT")}</p>
+
+                                    <div className="card-body">
+                                        <div className="container d-flex justify-content-between">
+                                            <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>{moment(cita.start).format("LL")} </p>
+                                            <p className=" text-muted"><i className="far fa-clock mr-1"></i>{moment.utc(cita.start).format("LT")}</p>
                                         </div>
                                     </div>
-            
-                                    <div class="card-footer align-items-center">
-                                        <div class="d-flex justify-content-end">
-                                            <button class="btn btn-info mr-1"><i class="fas fa-edit mr-1"></i>Cambiar</button>
-                                            <button class="btn btn-danger"><i class="fas fa-trash-alt mr-1"></i>Borrar</button>
+
+                                    <div className="card-footer align-items-center">
+                                        <div className="d-flex justify-content-end">
+                                            <button className="btn btn-danger" onClick={() => this.deleteCita(cita._id)}><i className="fas fa-trash-alt mr-1"></i>Borrar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>)
                         )}
-                        
+
                     </div>
                 </div>
             </div>

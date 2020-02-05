@@ -21,19 +21,19 @@ const CitaSchema = new Schema({
             required: true
         },
     },
-    areaMedica:{
+    areaMedica: {
         id: {
             type: String,
             required: true
         },
-        nombre:{
+        nombre: {
             type: String,
             required: true
         }
     },
     title: {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
     start: {
         type: Date,
@@ -45,6 +45,6 @@ const CitaSchema = new Schema({
     }
 });
 
-CitaSchema.plugin(timeZone, { paths: ['fecha'] });
+CitaSchema.plugin(timeZone, { paths: ['start', 'end'] });
 
 module.exports = CitaSchema;

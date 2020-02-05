@@ -72,6 +72,6 @@ router.put('/me/citas/:id_cita', (req, res) => res.send('editar cita'))
 //@Route: Eliminar Cita 
 //  DELETE /api/paciente/me/citas/:id_cita
 //  Access: private
-router.delete('/me/citas/:id_cita', (req, res) => res.send('Eliminar cita'))
+router.delete('/me/citas/:id_cita', verifyToken, deleteCita)
 
 module.exports = router;

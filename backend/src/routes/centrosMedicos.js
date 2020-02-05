@@ -5,7 +5,7 @@ const router = Router();
 const verifyToken = require('../controllers/verifyToken')
 
 //Controllers
-const { login, getCMS, getCM, registerCM, updateCM, deleteCM, getAreasMedicas, createAreaMedica, getAreaMedica, editAreaMedica, deleteAreaMedica, getCityCMS } = require('../controllers/centrosMedicos.controller')
+const { login, getCMS, getCM, registerCM, updateCM, deleteCM, getAreasMedicas, createAreaMedica, getAreaMedica, getCitasArea, editAreaMedica, deleteAreaMedica, getCityCMS } = require('../controllers/centrosMedicos.controller')
 
 //@Route: Ver Centros Medicos
 //  GET /api/cm/
@@ -81,7 +81,7 @@ router.delete('/me/areas/:id_area', verifyToken, deleteAreaMedica)
 //@Route: Ver citas de area medica
 //  GET: /api/cm/me/areas/:id_area/citas 
 //  Access: private
-router.get('/me/areas/:id_area/citas', (req, res) => res.send('Ver citas de area medica'))
+router.get('/me/areas/:id_area/citas', verifyToken, getCitasArea)
 
 
 module.exports = router

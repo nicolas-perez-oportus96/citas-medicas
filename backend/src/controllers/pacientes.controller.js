@@ -41,7 +41,6 @@ pacientesCtrl.loginPaciente = async (req, res) => {
     })
 }
 
-
 //Consultar pacientes
 pacientesCtrl.getPacientes = async (req, res) => {
     const pacientes = await Paciente.find();
@@ -101,7 +100,8 @@ pacientesCtrl.getPaciente = async (req, res) => {
         //validando paciente no encontrado
         if (!paciente) {
             return res.json({
-                message: 'Paciente no encontrado' })
+                message: 'Paciente no encontrado'
+            })
         }
         res.json(paciente);
     } catch (e) {
@@ -145,7 +145,7 @@ pacientesCtrl.updatePaciente = async (req, res) => {
     // await bcrypt.genSalt(10, (err, salt) => {
     //     bcrypt.hash(password, salt, async (err, hash) => {
     //         password = hash;
-            
+
     //     })
     // })
 };
