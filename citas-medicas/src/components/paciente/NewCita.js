@@ -4,10 +4,30 @@ import axios from 'axios'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import { getToken } from '../../helpers/Token'
+import Modal from 'react-modal';
+
+import { showNotification } from '../../helpers/Notification'
 require('react-big-calendar/lib/css/react-big-calendar.css')
 require('moment/locale/es.js');
 
 const localizer = momentLocalizer(moment);
+const modalStyles = {
+    overlay:{
+        backgroundColor: 'rgba(255, 255, 255, 0.75)'
+    },
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      backgroundColor: 'rgb(255, 255, 255)'
+    }
+};
+
+Modal.setAppElement(document.getElementById('root'));
+
 
 export default class NewCita extends Component {
     constructor(props) {
@@ -20,12 +40,15 @@ export default class NewCita extends Component {
                 start: Date,
                 end: Date,
             },
-            isActive: false
+            isActive: false,
+            showModal: false
         }
 
         this.onSelectChange = this.onSelectChange.bind(this)
         this.onSelectCita = this.onSelectCita.bind(this)
         this.onSubmitCita = this.onSubmitCita.bind(this)
+        this.showModal = this.showModal.bind(this)
+        this.closeModal = this.closeModal.bind(this)
     }
 
     async componentDidMount() {
@@ -89,21 +112,29 @@ export default class NewCita extends Component {
         return false;
     }
 
+    showModal(){
+        this.setState({showModal: true})
+    }
+
+    closeModal(){
+        this.setState({showModal: false})
+    }
+
     onSelectCita = e => {
         this.setState({
             cita: {
                 start: e.start,
-                end: e.end
+                end: e.end,
             }
         })
 
-        console.log(this.state.cita)
+        this.showModal();
     }
 
     onSubmitCita = async e => {
         e.preventDefault()
         console.log(this.state)
-        const token = getToken();
+        const token = await getToken();
 
         const res = await axios.post('http://localhost:4000/api/paciente/me/citas', {
             cita: {
@@ -125,12 +156,13 @@ export default class NewCita extends Component {
         });
 
         console.log(res)
-
+        await this.props.history.push('/escritorio')
+        await showNotification('Cita Medica Solicitada!',' ','success')
     }
 
     render() {
         return (
-            <div className="dashboard">
+            <div id="dashboard"className="dashboard">
                 <div className="container card border-0 shadow bg-white rounded">
                     <div className="container card-body ">
                         <form onSubmit={this.onSubmitCita}>
@@ -189,11 +221,27 @@ export default class NewCita extends Component {
                                     <Link className="btn btn-primary btn btn-block" to='/escritorio'><i className="fas fa-chevron-left mr-3"></i>Volver a Mi Escritorio</Link>
                                 </div>
 
-                                <div className="col-lg-9">
-                                    <button className="btn btn-success btn-block" type="submit"><i className="fas fa-save mr-3"></i>Solicitar Cita Medica</button>
-                                </div>
+                                
                             </div>
 
+                            <Modal
+                                isOpen={this.state.showModal}
+                                onRequestClose={this.closeModal}
+                                style={modalStyles}
+                                contentLabel="Example Modal">
+                                    <h4>Confirmacion de Cita Medica</h4>
+                                    <hr className="mb-2"/>
+
+                                    <p className=" text-muted"><i className="far fa-hospital mr-2"></i>Area de atencion: {this.state.areaMedica.nombre}</p>
+                                    <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>Fecha: {moment(this.state.cita.start).format("LL")} </p>
+                                    <p className=" text-muted"><i className="far fa-clock mr-1"></i>Hora: {moment(this.state.cita.start).format("LT")}</p>
+                                    
+
+                                    <p>¿Confirmas tu cita medica con los datos anteriores?</p>
+                                        <button className="btn btn-success btn-block" onClick={this.onSubmitCita}><i className="fas fa-save mr-3"></i>Solicitar Cita Medica</button>
+                                    <div className="col-lg-9">
+                                            </div>
+                            </Modal>
                         </form>
                     </div>
                 </div>
