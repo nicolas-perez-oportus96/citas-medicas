@@ -20,7 +20,6 @@ export default class Login extends Component {
 
     onInputChange = e => {
         this.setState({ [e.target.name]: e.target.value })
-        console.log(this.state)
     }
 
     adminSignIn = async e => {
@@ -29,9 +28,7 @@ export default class Login extends Component {
             rut_admin: this.state.user,
             password: this.state.password,
         })
-        console.log(res.data)
         if (res.data.auth === true){
-            console.log(res.data)
             localStorage.setItem('session-token', res.data.token)
             this.props.history.push('/centromedico');
         } else {

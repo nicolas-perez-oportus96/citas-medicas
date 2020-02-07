@@ -112,7 +112,6 @@ pacientesCtrl.getPaciente = async (req, res) => {
 
 //Actualizar datos del paciente
 pacientesCtrl.updatePaciente = async (req, res) => {
-    var password = req.body.password
     const { nombres, apellidos, fecha_nacimiento, telefono, correo } = req.body;
     const paciente_id = req.params.id_paciente
 

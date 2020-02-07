@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link} from 'react-router-dom'
-import { getToken } from '../../helpers/Token'
+import { getToken } from '../helpers/Token'
 import Axios from 'axios';
 
 const jwt = require('jsonwebtoken');
@@ -54,7 +54,6 @@ class AuthComponent extends Component {
                 admin: undefined
             })
         });
-        console.log(this.state.user)
     }
 
     async componentDidMount() {

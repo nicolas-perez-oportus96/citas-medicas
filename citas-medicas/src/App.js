@@ -13,12 +13,13 @@ import Login from './components/paciente/Login'
 import AdminLogin from './components/admin/AdminLogin'
 import Footer from './components/Footer'
 
-import AuthComponent from './components/paciente/AuthComponent'
+import AuthComponent from './components/AuthComponent'
 import Dashboard from './components/paciente/Dashboard'
 import DatosPaciente from './components/paciente/DatosPaciente'
 import NewCita from './components/paciente/NewCita'
 
 import AdminDashboard from './components/admin/AdminDashboard'
+import DatosCentro from './components/admin/DatosCentro'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/paciente" component={DatosPaciente} />
             <Route path="/newCita" component={NewCita} />
             <Route path="/centroMedico" component={AdminDashboard}/>
+            <Route path="/micentro" component={DatosCentro}/>
           </AuthComponent>
         </Switch>
       </Router>

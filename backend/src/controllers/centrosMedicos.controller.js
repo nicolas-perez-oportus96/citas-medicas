@@ -92,46 +92,36 @@ cmsCtrl.getCM = async (req, res) => {
 
 //Actualizar datos centro medico (por id)  (OK!)
 cmsCtrl.updateCM = async (req, res) => {
-    var password = req.body.password
-    const { rut_admin, nombre_cm, ubicacion, direccion, telefono, correo } = req.body;
-    const cm_id = req.params.id_cm
+    const { nombre_cm, correo, telefono, direccion } = req.body;
+    const centro_id = req.params.id_cm
 
     //validacion simple
-    if (!rut_admin || !password || !nombre_cm || !direccion || !telefono || !correo) {
+    if ( !nombre_cm || !correo || !telefono || !direccion ) {
         return res.json({
             message: 'datos faltantes'
         });
     };
 
-    console.log(cm_id)
-    console.log(req.centroID)
-
-    if (cm_id != req.centroID) {
-        return res.status(500).send({ auth: false, message: 'No tienes permisos para acceder a esta ruta' });
+    if (centro_id != req.centroID) {
+        return res.status(500).json({
+            auth: false,
+            message: 'No tienes permisos para acceder a esta ruta'
+        });
     }
 
-    //BCRYPT: rehash de nueva contraseña
-    await bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, async (err, hash) => {
-            password = hash;
-            //almacenando centroMedico
-            await CentroMedico.findByIdAndUpdate(cm_id, {
-                rut_admin,
-                password,
-                nombre_cm,
-                ubicacion,
-                direccion,
-                telefono,
-                correo
-            }, { new: true }, (err, cmUpdate) => {
-                if (err) return res.status(500).send({ message: 'Request Error' });
+    //almacenando centroMedico
+    await CentroMedico.findByIdAndUpdate(req.centroID, {
+        nombre_cm,
+        direccion,
+        telefono,
+        correo
+    }, { new: true }, (err, cmUpdate) => {
+        if (err) return res.json({ status: 0, message: 'Request Error' });
 
-                if (!cmUpdate) return res.status(404).send({ message: 'No se pudo actualizar CM' })
+        if (!cmUpdate) return res.json({ status: 0, message: 'No se pudo actualizar CM' })
 
-                return res.status(200).json({ message: 'Centro medico modificado', cmUpdate });
-            });
-        })
-    })
+        return res.json({ status: 1, message: 'Centro medico modificado', cmUpdate });
+    });
 };
 
 //Eliminar Centro Medico (OK!)
