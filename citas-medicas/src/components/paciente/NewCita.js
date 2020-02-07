@@ -5,7 +5,6 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import { getToken } from '../../helpers/Token'
 import Modal from 'react-modal';
-
 import { showNotification } from '../../helpers/Notification'
 require('react-big-calendar/lib/css/react-big-calendar.css')
 require('moment/locale/es.js');
@@ -94,8 +93,8 @@ export default class NewCita extends Component {
         const citas = res.data
 
         for (let i = 0; i < citas.length; i++) {
-            citas[i].start = moment(citas[i].start).add(3, 'h').toDate();
-            citas[i].end = moment(citas[i].end).add(3, 'h').toDate()
+            citas[i].start = moment.utc(citas[i].start).add(3, 'h').toDate();
+            citas[i].end = moment.utc(citas[i].end).add(3, 'h').toDate()
         }
 
         console.log(citas)

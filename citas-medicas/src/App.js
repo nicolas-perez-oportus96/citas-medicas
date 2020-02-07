@@ -18,6 +18,7 @@ import Dashboard from './components/paciente/Dashboard'
 import DatosPaciente from './components/paciente/DatosPaciente'
 import NewCita from './components/paciente/NewCita'
 
+import AdminDashboard from './components/admin/AdminDashboard'
 
 function App() {
   return (
@@ -33,11 +34,11 @@ function App() {
             <Route path="/escritorio" component={Dashboard} />
             <Route path="/paciente" component={DatosPaciente} />
             <Route path="/newCita" component={NewCita} />
+            <Route path="/centroMedico" component={AdminDashboard}/>
           </AuthComponent>
-
         </Switch>
-        <Footer />
       </Router>
+      <Footer />
     </div>
 
   );

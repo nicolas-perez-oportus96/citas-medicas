@@ -11,10 +11,7 @@ export default class Dashboard extends Component {
     }
 
     async componentDidMount() {
-
         this.getCitas()
-
-        console.log(this.state.citasPaciente)
     }
 
     async getCitas() {
@@ -64,8 +61,8 @@ export default class Dashboard extends Component {
 
                                     <div className="card-body">
                                         <div className="container d-flex justify-content-between">
-                                            <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>{moment(cita.start).format("LL")} </p>
-                                            <p className=" text-muted"><i className="far fa-clock mr-1"></i>{moment(cita.start).format("LT")}</p>
+                                            <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>{cita.start} </p>
+                                            <p className=" text-muted"><i className="far fa-clock mr-1"></i>{moment.utc(cita.start).format("LT")}</p>
                                         </div>
                                     </div>
 

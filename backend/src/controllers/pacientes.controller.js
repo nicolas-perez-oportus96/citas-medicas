@@ -31,7 +31,7 @@ pacientesCtrl.loginPaciente = async (req, res) => {
         })
     }
     //generando token
-    const token = jwt.sign({ pacienteID: paciente._id, centroID: paciente.centroMedico.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ admin: false, pacienteID: paciente._id, centroID: paciente.centroMedico.id }, process.env.JWT_SECRET, {
         expiresIn: 60 * 60
     });
     res.json({

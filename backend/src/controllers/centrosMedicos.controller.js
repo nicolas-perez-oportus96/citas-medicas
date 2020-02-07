@@ -29,7 +29,7 @@ cmsCtrl.login = async (req, res) => {
         res.json({ auth: false, message: 'Contraseña incorrecta', token: null })
     }
     //generando token
-    const token = jwt.sign({ centroID: centroMedico._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ admin: true, centroID: centroMedico._id }, process.env.JWT_SECRET, {
         expiresIn: 60 * 60
     });
 
@@ -83,17 +83,12 @@ cmsCtrl.registerCM = async (req, res) => {
 
 //consultar centro medico (por id)  (OK!)
 cmsCtrl.getCM = async (req, res) => {
-    console.log(req.centroID)
-    try {
-        const centroMedico = await CentroMedico.findById(req.centroID)
-        if (!centroMedico) {
-            return res.status(404).send('CM no encontrado')
-        }
-        res.json(centroMedico)
-    } catch (e) {
-        res.status(204).send(); //Centro Medico no encontrado
+    const centroMedico = await CentroMedico.findById(req.centroID)
+    if (!centroMedico) {
+        return res.json({message: 'CM no encontrado'})
     }
-}
+    res.json(centroMedico)
+};
 
 //Actualizar datos centro medico (por id)  (OK!)
 cmsCtrl.updateCM = async (req, res) => {
@@ -147,9 +142,7 @@ cmsCtrl.deleteCM = async (req, res) => {
     } catch (e) {
         res.status(404).send()
     }
-}
-
-
+};
 
 ///Ver areas medicas de un CM (OK!)
 cmsCtrl.getAreasMedicas = async (req, res) => {
@@ -162,7 +155,7 @@ cmsCtrl.getAreasMedicas = async (req, res) => {
             message: "CM no registra areas medicas"
         }); //Areasmedicas no encontradas
     }
-}
+};
 
 //agregar areaMedica a un CM (OK!)
 cmsCtrl.createAreaMedica = async (req, res) => {
@@ -184,7 +177,6 @@ cmsCtrl.createAreaMedica = async (req, res) => {
     }
 };
 
-
 ///Ver area medica de un CM (OK!)
 cmsCtrl.getAreaMedica = async (req, res) => {
     try {
@@ -202,8 +194,7 @@ cmsCtrl.getAreaMedica = async (req, res) => {
     } catch (e) {
         res.status(204).send(); //Areasmedicas no encontradas
     }
-}
-
+};
 
 //modificar areaMedica de un CM (OK!)
 cmsCtrl.editAreaMedica = async (req, res) => {
@@ -240,11 +231,7 @@ cmsCtrl.deleteAreaMedica = async (req, res) => {
     } catch (e) {
         res.status(404).send()
     }
-}
-
-
-
-
+};
 
 //agregar cita a un CM. (OK!)
 cmsCtrl.createCita = async (req, res) => {
@@ -266,7 +253,6 @@ cmsCtrl.createCita = async (req, res) => {
     });
 };
 
-
 //ver citas por area medica (OK!)
 cmsCtrl.getCitasArea = async (req, res) => {
     const centroMedico = await CentroMedico.findById(req.centroID);
@@ -278,8 +264,7 @@ cmsCtrl.getCitasArea = async (req, res) => {
         }
     }
     res.json(citasArea)
-}
-
+};
 
 ///Ver citas medicas de un paciente (OK!)
 cmsCtrl.getCitasPaciente = async (req, res) => {
@@ -292,8 +277,7 @@ cmsCtrl.getCitasPaciente = async (req, res) => {
         }
     }
     res.json(citasPaciente)
-}
-
+};
 
 ///Ver cita medica de un CM 
 cmsCtrl.getCita = async (req, res) => {
@@ -312,8 +296,7 @@ cmsCtrl.getCita = async (req, res) => {
     } catch (e) {
         res.status(204).send(); //Areasmedicas no encontradas
     }
-}
-
+};
 
 //modificar cita medica de un CM.
 cmsCtrl.editCita = async (req, res) => {
@@ -347,13 +330,13 @@ cmsCtrl.deleteCita = async (req, res) => {
             message: 'Cita eliminada'
         });
     });
-}
+};
 
 //ver centros medicos por ciudad
 cmsCtrl.getCityCMS = async (req, res) => {
     const centrosMedicos = await CentroMedico.find({ "ubicacion.ciudad._id": req.params.id_ciudad }, 'nombre_cm')
     return res.json(centrosMedicos)
-}
+};
 
 
 

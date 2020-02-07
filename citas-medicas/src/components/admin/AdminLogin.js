@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import { showNotification } from '../../helpers/Notification'
 import NavBar from '../../components/Navbar'
 
 
@@ -16,8 +17,6 @@ export default class Login extends Component {
         this.adminSignIn = this.adminSignIn.bind(this);
     }
     
-    
-    
 
     onInputChange = e => {
         this.setState({ [e.target.name]: e.target.value })
@@ -26,10 +25,18 @@ export default class Login extends Component {
 
     adminSignIn = async e => {
         e.preventDefault()
-        await axios.post('http://localhost:4000/api/cm/login', {
+        const res = await axios.post('http://localhost:4000/api/cm/login', {
             rut_admin: this.state.user,
             password: this.state.password,
-        }).then(res => localStorage.setItem('session-token', res.data.token))
+        })
+        console.log(res.data)
+        if (res.data.auth === true){
+            console.log(res.data)
+            localStorage.setItem('session-token', res.data.token)
+            this.props.history.push('/centromedico');
+        } else {
+            showNotification('Problema al iniciar sesion',res.data.message,'info')
+        }
     }
 
 
@@ -38,7 +45,6 @@ export default class Login extends Component {
             <div className="signInComponent">
                 <NavBar/>
                 <div className="signInComponent">
-                    
                     <div className="signInCard container">
                         <div className="card border-1 shadow bg-white rounded mt-2">
                             <div className="card-body p-5">

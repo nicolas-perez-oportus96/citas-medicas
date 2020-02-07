@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-
+import {showNotification} from '../../helpers/Notification'
 import NavBar from '../Navbar'
 
 export default class Login extends Component {
@@ -24,13 +24,17 @@ export default class Login extends Component {
 
     signIn = async e => {
         e.preventDefault();
-        await axios.post('http://localhost:4000/api/paciente/login', {
+        const res = await axios.post('http://localhost:4000/api/paciente/login', {
             rut: this.state.user,
             password: this.state.password,
-        }).then(res => {
+        })
+        console.log(res.data)
+        if(res.data.auth === true) {
             localStorage.setItem('session-token', res.data.token)
             this.props.history.push('/escritorio');
-        });
+        } else {
+            showNotification('Problema al iniciar sesion',res.data.message,'info')
+        };
     }
 
     render() {
