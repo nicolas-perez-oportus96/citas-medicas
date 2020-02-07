@@ -136,15 +136,14 @@ cmsCtrl.deleteCM = async (req, res) => {
 
 ///Ver areas medicas de un CM (OK!)
 cmsCtrl.getAreasMedicas = async (req, res) => {
-    try {
-        const centroMedico = await CentroMedico.findById(req.centroID)
-        res.json(centroMedico.areasMedicas)
-    } catch (e) {
+    const centroMedico = await CentroMedico.findById(req.centroID)
+    if(!centroMedico) {
         res.json({
             status: 0,
             message: "CM no registra areas medicas"
         }); //Areasmedicas no encontradas
     }
+    res.json(centroMedico.areasMedicas)   
 };
 
 //agregar areaMedica a un CM (OK!)
