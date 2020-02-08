@@ -137,33 +137,22 @@ cmsCtrl.deleteCM = async (req, res) => {
 ///Ver areas medicas de un CM (OK!)
 cmsCtrl.getAreasMedicas = async (req, res) => {
     const centroMedico = await CentroMedico.findById(req.centroID)
-    if(!centroMedico) {
-        res.json({
-            status: 0,
-            message: "CM no registra areas medicas"
-        }); //Areasmedicas no encontradas
-    }
     res.json(centroMedico.areasMedicas)   
 };
 
 //agregar areaMedica a un CM (OK!)
 cmsCtrl.createAreaMedica = async (req, res) => {
-    try {
-        const centroMedico = await CentroMedico.findById(req.centroID)
-        centroMedico.areasMedicas.push(req.body.areaMedica)
-        var nuevaAM = centroMedico.areasMedicas[0];
-        nuevaAM.isNew;
+    const centroMedico = await CentroMedico.findById(req.centroID)
+    centroMedico.areasMedicas.push(req.body.areaMedica)
+    var nuevaAM = centroMedico.areasMedicas[0];
+    nuevaAM.isNew;
 
-        await centroMedico.save(function (err) {
-            if (err) return handleError(err)
-            res.json({
-                message: 'Area medica agregada'
-            });
-
+    await centroMedico.save(function (err) {
+        if (err) return handleError(err)
+        res.json({
+            message: 'Area medica agregada'
         });
-    } catch (e) {
-        res.status(404).send()
-    }
+    });
 };
 
 ///Ver area medica de un CM (OK!)
@@ -207,19 +196,14 @@ cmsCtrl.editAreaMedica = async (req, res) => {
 
 //eliminar areaMedica de un CM (OK!)
 cmsCtrl.deleteAreaMedica = async (req, res) => {
-    try {
-        const centroMedico = await CentroMedico.findById(req.centroID)
-        centroMedico.areasMedicas.id(req.params.id_area).remove();
+    const centroMedico = await CentroMedico.findById(req.centroID)
+    centroMedico.areasMedicas.id(req.params.id_area).remove();
 
-        await centroMedico.save(function (err) {
-            if (err) return handleError(err)
-            res.json({
-                message: 'Area medica eliminada'
-            });
+    await centroMedico.save();
+        return res.json({
+            status: 0,
+            message: 'Area medica eliminada'
         });
-    } catch (e) {
-        res.status(404).send()
-    }
 };
 
 //agregar cita a un CM. (OK!)

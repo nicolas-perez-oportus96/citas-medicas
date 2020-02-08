@@ -126,7 +126,6 @@ export default class NewCita extends Component {
                 end: e.end,
             }
         })
-
         this.showModal();
     }
 
@@ -228,18 +227,17 @@ export default class NewCita extends Component {
                                 onRequestClose={this.closeModal}
                                 style={modalStyles}
                                 contentLabel="Example Modal">
-                                    <h4>Confirmacion de Cita Medica</h4>
-                                    <hr className="mb-2"/>
 
-                                    <p className=" text-muted"><i className="far fa-hospital mr-2"></i>Area de atencion: {this.state.areaMedica.nombre}</p>
-                                    <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>Fecha: {moment(this.state.cita.start).format("LL")} </p>
-                                    <p className=" text-muted"><i className="far fa-clock mr-1"></i>Hora: {moment(this.state.cita.start).format("LT")}</p>
-                                    
+                                <h4>Confirmacion de Cita Medica</h4>
+                                <hr className="mb-2"/>
 
-                                    <p>¿Confirmas tu cita medica con los datos anteriores?</p>
-                                        <button className="btn btn-success btn-block" onClick={this.onSubmitCita}><i className="fas fa-save mr-3"></i>Solicitar Cita Medica</button>
-                                    <div className="col-lg-9">
-                                            </div>
+                                <p className=" text-muted"><i className="far fa-hospital mr-2"></i>Area de atencion: {this.state.areaMedica.nombre}</p>
+                                <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>Fecha: {moment(this.state.cita.start).format("LL")} </p>
+                                <p className=" text-muted"><i className="far fa-clock mr-1"></i>Hora: {moment(this.state.cita.start).format("LT")}</p>
+                                
+
+                                <p>¿Confirmas tu cita medica con los datos anteriores?</p>
+                                <button className="btn btn-success btn-block" onClick={this.onSubmitCita}><i className="fas fa-save mr-3"></i>Solicitar Cita Medica</button>
                             </Modal>
                         </form>
                     </div>

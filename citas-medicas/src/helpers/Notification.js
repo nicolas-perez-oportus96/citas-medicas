@@ -5,8 +5,8 @@ export function showNotification(titulo, mensaje, tipo){
             title: titulo,
             message: mensaje,
             type: tipo,
-            insert: "top",
-            container: "top-right",
+            insert: "bottom",
+            container: "bottom-right",
             animationIn: ["animated", "fadeIn"],
             animationOut: ["animated", "fadeOut"],
             dismiss: {
