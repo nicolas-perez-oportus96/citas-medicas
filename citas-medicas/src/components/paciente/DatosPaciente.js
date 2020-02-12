@@ -60,57 +60,59 @@ export default class DatosPaciente extends Component {
 
     render() {
         return (
-            <div className="dashboard">
-                <form onSubmit={this.onSubmitChanges} className="container pt-5">
-                    <div className="card mb-3">
-                        <h5 className="card-header">Informacion personal</h5>
-                        <div className="card-body">
-                            <div className="form-row">
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="nombres">Nombres</label>
-                                    <input type="text" className="form-control" id="nombres" name="nombres" value={this.state.nombres} onChange={this.onInputChange} required></input>
+           <div className="dashboard">
+                <div className="container card border-0 shadow bg-white rounded">
+                    <div className="container card-body ">
+                        <form onSubmit={this.onSubmitChanges}>
+                            <div className="titulo mb-1">
+                                <h1 className="font-weight-light">Datos del Paciente</h1>
+                                <hr />
+                            </div>
+
+                            <div className="card-body">
+
+                                <div className="form-row">
+                                    <div className="col-md-6 mb-3">
+                                        <label htmlFor="nombres">Nombres</label>
+                                        <input type="text" className="form-control" id="nombres" name="nombres" value={this.state.nombres} onChange={this.onInputChange} required></input>
+                                    </div>
+                                    <div className="col-md-6 mb-3">
+                                        <label htmlFor="apellidos">Apellidos</label>
+                                        <input type="text" className="form-control" id="apellidos" name="apellidos" placeholder="Pérez Cotapos" value={this.state.apellidos} onChange={this.onInputChange} required></input>
+                                    </div>
                                 </div>
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="apellidos">Apellidos</label>
-                                    <input type="text" className="form-control" id="apellidos" name="apellidos" placeholder="Pérez Cotapos" value={this.state.apellidos} onChange={this.onInputChange} required></input>
+                                
+                                <div className="form-row">
+                                    <div className="col-md-12 mb-3">
+                                        <label htmlFor="fecha_nacimiento">Fecha de nacimiento</label>
+                                        <input type="date" className="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder={this.state.fecha} onChange={this.onInputChange} required></input>
+                                    </div>
+                                </div>
+                                
+                                <div className="form-row">
+                                    <div className="col-md-6 mb-3">
+                                        <label htmlFor="correo">Correo Electronico</label>
+                                        <input type="text" className="form-control" id="correo" name="correo" placeholder="example@example.cl" value={this.state.correo} onChange={this.onInputChange} required></input>
+                                    </div>
+                                    <div className="col-md-6 mb-3">
+                                        <label htmlFor="telefono">Telefono</label>
+                                        <input type="number" className="form-control" id="telefono" name="telefono" placeholder="912345678" value={this.state.telefono} onChange={this.onInputChange} required></input>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <Link className="btn btn-primary btn-block" to='/escritorio'><i className="fas fa-chevron-left mr-3"></i>Volver a Mi Escritorio</Link>
+                                    </div>
+
+                                    <div className="col-md-9">
+                                        <button className="btn btn-success btn-block" type="submit"><i className="fas fa-save mr-3"></i>Guardar Cambios</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="form-row">
-                                <div className="col-md-12 mb-3">
-                                    <label htmlFor="fecha_nacimiento">Fecha de nacimiento</label>
-                                    <input type="date" className="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder={this.state.fecha} onChange={this.onInputChange} required></input>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-
-
-                    <div className="card mb-3">
-                        <h5 className="card-header">Informacion de Contacto</h5>
-                        <div className="card-body">
-                            <div className="form-row">
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="correo">Correo Electronico</label>
-                                    <input type="text" className="form-control" id="correo" name="correo" placeholder="example@example.cl" value={this.state.correo} onChange={this.onInputChange} required></input>
-                                </div>
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="telefono">Telefono</label>
-                                    <input type="number" className="form-control" id="telefono" name="telefono" placeholder="912345678" value={this.state.telefono} onChange={this.onInputChange} required></input>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-3">
-                            <Link className="btn btn-primary btn-lg btn-block" to='/escritorio'><i className="fas fa-chevron-left mr-3"></i>Volver a Mi Escritorio</Link>
-                        </div>
-
-                        <div className="col-md-9">
-                            <button className="btn btn-success btn-lg btn-block" type="submit"><i className="fas fa-save mr-3"></i>Guardar Cambios</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         )
     }

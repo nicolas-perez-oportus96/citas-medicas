@@ -3,7 +3,6 @@
 
 //libraries
 const CentroMedico = require('../models/CentroMedico');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
 const cmsCtrl = {};
@@ -213,8 +212,6 @@ cmsCtrl.createCita = async (req, res) => {
         res.json({ message: 'Centro medico no encontrado' })
     }
     centroMedico.citas.push(req.body.cita);
-    var nuevaCita = centroMedico.citas[0];
-    nuevaCita.isNew;
 
     await centroMedico.save(function (err) {
         if (err) return handleError(err)
@@ -310,7 +307,5 @@ cmsCtrl.getCityCMS = async (req, res) => {
     const centrosMedicos = await CentroMedico.find({ "ubicacion.ciudad._id": req.params.id_ciudad }, 'nombre_cm')
     return res.json(centrosMedicos)
 };
-
-
 
 module.exports = cmsCtrl;

@@ -1,6 +1,5 @@
 //DATA MODEL para citas medicas
 const { Schema } = require('mongoose');
-const timeZone = require('mongoose-timezone');
 
 const CitaSchema = new Schema({
     paciente: {
@@ -44,7 +43,5 @@ const CitaSchema = new Schema({
         required: true
     }
 });
-
-CitaSchema.plugin(timeZone, { paths: ['start', 'end'] });
 
 module.exports = CitaSchema;

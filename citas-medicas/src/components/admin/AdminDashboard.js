@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { getToken } from '../../helpers/Token'
 import { showNotification } from '../../helpers/Notification'
 import Axios from 'axios'
@@ -38,7 +39,6 @@ export default class AdminDashboard extends Component {
         this.onInputChange = this.onInputChange.bind(this)
     }
     
-
     async getAreasMedicas(){
         const token = getToken();
         const res = await Axios.get('http://localhost:4000/api/cm/me/areas', {
@@ -136,7 +136,7 @@ export default class AdminDashboard extends Component {
                                                 <hr/>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <button type="button" class="btn btn-outline-success" > <i class="fas fa-calendar-week mr-1"></i>Citas</button>
+                                                <Link type="button" class="btn btn-outline-success" to={'/citas/' + areaMedica._id}> <i class="fas fa-calendar-week mr-1"></i>Citas</Link>
                                                 <button type="button" class="btn btn-outline-danger" onClick={() => this.deleteArea(areaMedica._id)}> <i class="fas fa-trash-alt mr-1"></i>Borrar</button>
                                             </div>
                                         </div>

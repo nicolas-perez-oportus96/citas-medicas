@@ -7,11 +7,11 @@ export function showNotification(titulo, mensaje, tipo){
             type: tipo,
             insert: "bottom",
             container: "bottom-right",
-            animationIn: ["animated", "fadeIn"],
-            animationOut: ["animated", "fadeOut"],
+            animationIn: ["animated", "bounceIn"],
+            animationOut: ["animated", "bounceOut"],
             dismiss: {
-                duration: 4000,
-                onScreen: true
+                duration: 2500,
+                onScreen: false
             }
         });
     }

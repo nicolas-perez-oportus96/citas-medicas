@@ -20,6 +20,7 @@ import NewCita from './components/paciente/NewCita'
 
 import AdminDashboard from './components/admin/AdminDashboard'
 import DatosCentro from './components/admin/DatosCentro'
+import CitasArea from './components/admin/CitasArea'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/newCita" component={NewCita} />
             <Route path="/centroMedico" component={AdminDashboard}/>
             <Route path="/micentro" component={DatosCentro}/>
+            <Route path="/citas/:id" component={CitasArea}/>
           </AuthComponent>
         </Switch>
       </Router>

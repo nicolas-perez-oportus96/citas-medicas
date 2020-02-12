@@ -16,7 +16,6 @@ export default class Login extends Component {
         this.onInputChange = this.onInputChange.bind(this);
         this.adminSignIn = this.adminSignIn.bind(this);
     }
-    
 
     onInputChange = e => {
         this.setState({ [e.target.name]: e.target.value })
@@ -35,7 +34,6 @@ export default class Login extends Component {
             showNotification('Problema al iniciar sesion',res.data.message,'info')
         }
     }
-
 
     render() {
         return (
@@ -59,7 +57,7 @@ export default class Login extends Component {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text signInlabel" id="basic-addon1">Contraseña:</span>
                                         </div>
-                                        <input type="text" className="form-control" placeholder="Ingrese su contraseña" name="password" onChange={this.onInputChange}></input>
+                                        <input type="password" className="form-control" placeholder="Ingrese su contraseña" name="password" onChange={this.onInputChange}></input>
                                     </div>
 
                                     <button type="submit" className="btn btn-primary btn-lg btn-block mt-4 mb-2" to="">Iniciar Sesion</button>

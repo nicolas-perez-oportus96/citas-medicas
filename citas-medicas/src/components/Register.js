@@ -1,10 +1,10 @@
+//Importando librerias
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import axios from 'axios';
-
+import { showNotification } from '../helpers/Notification'
 import NavBar from '../components/Navbar'
-import { store } from 'react-notifications-component';
 
 
 export default class Register extends Component {
@@ -31,6 +31,7 @@ export default class Register extends Component {
     }
 
     async componentDidMount() {
+        //consultando regiones
         const res = await axios.get('http://localhost:4000/api/region/')
         this.setState({
             regiones: res.data,
@@ -40,29 +41,15 @@ export default class Register extends Component {
     }
 
     async cargarCiudades(id) {
+        //consultando ciudades de region
         const res = await axios.get('http://localhost:4000/api/region/' + id + "/cities")
         this.setState({ ciudades: res.data })
     }
 
     async cargarCMs(idCiudad) {
+        //consultando centros medicos por ciudad
         const res = await axios.get("http://localhost:4000/api/cm/bycity/" + idCiudad)
         this.setState({ centrosMedicos: res.data })
-    }
-
-    notification(titulo, mensaje, tipo) {
-        store.addNotification({
-            title: titulo,
-            message: mensaje,
-            type: tipo,
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeIn"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: true
-            }
-        });
     }
 
     onSubmitPaciente = async e => {
@@ -92,33 +79,10 @@ export default class Register extends Component {
         })
 
         if (res.data.auth) {
-            store.addNotification({
-                title: res.data.title,
-                message: res.data.message,
-                type: "success",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeIn"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                    duration: 5000,
-                    onScreen: true
-                }
-            });
+            showNotification(res.data.title, res.data.message, "success")
+            this.props.history.push('/login')
         } else {
-            store.addNotification({
-                title: res.data.title,
-                message: res.data.message,
-                type: "warning",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeIn"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                    duration: 5000,
-                    onScreen: true
-                }
-            });
+            showNotification(res.data.title, res.data.message, "warning")
         }
     }
 
@@ -144,9 +108,10 @@ export default class Register extends Component {
         })
 
         if (res.data.auth) {
-            this.notification(res.data.title, res.data.message, "success")
+            showNotification(res.data.title, res.data.message, "success")
+            this.props.history.push('/adminlogin')
         } else {
-            this.notification(res.data.title, res.data.message, "warning")
+            showNotification(res.data.title, res.data.message, "warning")
         }
     }
 
@@ -424,7 +389,7 @@ export default class Register extends Component {
                         </TabPanel>
                     </Tabs>
                 </div>
-            </div >
+            </div>
         )
     }
 }

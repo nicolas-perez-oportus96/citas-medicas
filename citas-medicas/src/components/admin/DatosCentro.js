@@ -15,26 +15,21 @@ export default class DatosCentro extends Component {
             }
         })
         await this.setState(res.data)
-        console.log(this.state)
     }
 
     async componentDidMount(){
         const token = getToken();
         this.getCm(token);
-        console.log(this.state)
     }
 
     onInputChange = e => {
         this.setState({ [e.target.name]: e.target.value })
-        console.log(this.state)
     }
 
     onSubmitChanges = async e => {
         e.preventDefault()
         const token = getToken();
-
-        console.log(this.state)
-        const put = await Axios.put('http://localhost:4000/api/cm/me/' + this.state._id, 
+        await Axios.put('http://localhost:4000/api/cm/me/' + this.state._id, 
         {
             nombre_cm: this.state.nombre_cm,
             correo: this.state.correo,
@@ -45,12 +40,9 @@ export default class DatosCentro extends Component {
                 'x-access-token': token
             },
         });
-
         showNotification("Datos Modificados exitosamente", "Debes iniciar sesion nuevamente", 'success')
-
         localStorage.removeItem('session-token')
         this.props.history.push('/adminlogin')
-        console.log(put)
     }
 
     render() {
@@ -102,9 +94,6 @@ export default class DatosCentro extends Component {
                                 </div>
 
                             </div>
-
-                           
-
                         </form>
                     </div>
                 </div>

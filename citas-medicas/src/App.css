@@ -90,8 +90,13 @@ hr {
 }
 
 .areas-container {
-    background-color: rgba(254, 254, 254, 0.7);
-    padding: 50px;  
+    background-color: rgba(254, 254, 254, 0.6);
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.registerComponent {
+    background-color: #d2d9e0;
 }
 
 /*!Bootstrap Sidebar */

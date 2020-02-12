@@ -39,7 +39,6 @@ regionesCtrl.createRegion = async(req, res) => {
         });
 };
 
-
 //Consultar una region 
 regionesCtrl.getRegion = async(req, res) => {
     try {
@@ -80,7 +79,6 @@ regionesCtrl.createCiudad = async(req, res) => {
     }
 
 };
-
 
 //Eliminar Region
 regionesCtrl.deleteRegion = async(req, res) => {

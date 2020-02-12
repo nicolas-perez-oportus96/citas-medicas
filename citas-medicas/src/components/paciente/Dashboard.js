@@ -45,7 +45,14 @@ export default class Dashboard extends Component {
                 {/* Container Citas */}
 
                 <div className="container">
+
+                    {this.state.citasPaciente.length < 1 &&
+                        <div className="d-flex justify-content-around mt-5  ">
+                            <h1 className="text-white-50">No registras citas</h1>
+                        </div>
+                    }
                     <div className="row">
+
                         {/* //rendering citas */}
                         {this.state.citasPaciente.map(cita => (
                             <div key={cita._id} className="col-md-4 p-2">
@@ -61,8 +68,8 @@ export default class Dashboard extends Component {
 
                                     <div className="card-body">
                                         <div className="container d-flex justify-content-between">
-                                            <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>{cita.start} </p>
-                                            <p className=" text-muted"><i className="far fa-clock mr-1"></i>{moment.utc(cita.start).format("LT")}</p>
+                                            <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>{moment(cita.start).format("LL")} </p>
+                                            <p className=" text-muted"><i className="far fa-clock mr-1"></i>{moment(cita.start).format("LT")}</p>
                                         </div>
                                     </div>
 

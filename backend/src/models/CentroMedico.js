@@ -5,37 +5,10 @@ const bcrypt = require('bcrypt');
 const RegionSchema = require('./schemes/Region.schema')
 const CitaSchema = require('./schemes/Cita.schema')
 
-
-//Schema de citas
-// const CitaSchema = new Schema({
-//     paciente: {
-//         _id: {
-//             type: String
-//         },
-//         nombre: {
-//             type: String
-//         }
-//     },
-//     areaMedica: {
-//         _id: {
-//             type: String
-//         },
-//         nombre: {
-//             type: String
-//         }
-//     },
-//     fecha: {
-//         type: Date
-//     }
-// });
-
-// CitaSchema.plugin(timeZone, { paths: ['fecha'] });
-
 //Schema de areas medicas
 const AreaMedicaSchema = new Schema({
     nombre: String
 });
-
 
 //Schema de centro medico
 const CmSchema = new Schema({

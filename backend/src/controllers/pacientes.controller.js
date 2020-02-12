@@ -1,7 +1,6 @@
 //Controller para route 'pacientes.js'
 //------------------------------------//
 const Paciente = require('../models/Paciente');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
 const pacientesCtrl = {};
@@ -108,7 +107,6 @@ pacientesCtrl.getPaciente = async (req, res) => {
         res.status(204).send(); //Paciente no encontrado
     }
 };
-
 
 //Actualizar datos del paciente
 pacientesCtrl.updatePaciente = async (req, res) => {

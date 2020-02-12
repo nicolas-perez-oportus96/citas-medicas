@@ -1,5 +1,4 @@
 //Router para '/api/cm'
-
 const { Router } = require('express');
 const router = Router();
 const verifyToken = require('../controllers/verifyToken')

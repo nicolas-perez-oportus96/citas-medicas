@@ -28,7 +28,6 @@ export default class Login extends Component {
             rut: this.state.user,
             password: this.state.password,
         })
-        console.log(res.data)
         if(res.data.auth === true) {
             localStorage.setItem('session-token', res.data.token)
             this.props.history.push('/escritorio');
@@ -66,7 +65,6 @@ export default class Login extends Component {
         
                                     <small className="text-secondary">Si deseas iniciar sesion como administrador de centro medico, <Link to='/adminlogin'> haz click aqui.</Link></small>
                                 </form>
-        
                             </div>
                         </div>
                     </div>
@@ -74,7 +72,6 @@ export default class Login extends Component {
             </div>
         )
     }
-
 }
 
 

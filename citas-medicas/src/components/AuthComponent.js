@@ -97,13 +97,13 @@ class AuthComponent extends Component {
             return (
                 <div>
                      {/* NavBar */}
-                     <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between sticky-top">
+                     <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between sticky-top shadow-lg align-items-center">
                         <h5><i className="far fa-user mr-1"></i>Bienvenido Administrador <button onClick={this.logOut} className="badge badge-pill badge-danger">Cerrar Sesion</button></h5>
     
-                        <div className="centroMedico">
+                        <div className="centroMedico align-items-center">
                             <h5><i className="far fa-hospital mr-1"></i> {this.state.user.nombre_cm} </h5>
                         </div>
-                        <div className="botones">
+                        <div className="botones align-items-center">
                             <Link className="btn btn-outline-info my-2 ml-2 my-sm-0" to="/micentro" > <i className="fas fa-info-circle mr-1"></i>Informacion Centro Medico</Link>
                         </div>
                     </nav>
@@ -115,13 +115,13 @@ class AuthComponent extends Component {
             return (
                 <div>
                      {/* NavBar */}
-                     <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between sticky-top">
+                     <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between sticky-top shadow-lg align-items-center">
                         <h5><i className="far fa-user mr-1"></i>Bienvenido { this.state.user.nombres } <button onClick={this.logOut} className="badge badge-pill badge-danger">Cerrar Sesion</button></h5>
     
-                        <div className="centroMedico">
+                        <div className="centroMedico align-items-center">
                             <h5><i className="far fa-hospital mr-1"></i> { this.state.user.centroMedico.nombre }  </h5>
                         </div>
-                        <div className="botones">
+                        <div className="botones align-items-center">
                             <Link type="button" className="btn btn-outline-success" to="/newCita"> <i className="fas fa-calendar-week mr-1"></i>Solicitar Cita Medica</Link>
                             <Link className="btn btn-outline-info my-2 ml-2 my-sm-0" to="/paciente" > <i className="fas fa-info-circle mr-1"></i>Informacion Personal</Link>
                         </div>

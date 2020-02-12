@@ -87,54 +87,53 @@ export default class NewCita extends Component {
                 'x-access-token': token
             }
         })
-        console.log(res.data)
-
-
         const citas = res.data
 
         for (let i = 0; i < citas.length; i++) {
-            citas[i].start = moment.utc(citas[i].start).add(3, 'h').toDate();
-            citas[i].end = moment.utc(citas[i].end).add(3, 'h').toDate()
+            citas[i].start = moment(citas[i].start).toDate();
+            citas[i].end = moment(citas[i].end).toDate();
         }
 
-        console.log(citas)
         this.setState({
             areaMedica: areaMedica,
             citasArea: citas,
             isActive: true
         })
-
-        // console.log(this.state.citasArea)
     }
 
-    selecting = e => {
-        return false;
-    }
-
-    showModal(){
+    showModal() {
         this.setState({showModal: true})
     }
 
-    closeModal(){
+    closeModal() {
         this.setState({showModal: false})
     }
 
     onSelectCita = e => {
-        this.setState({
-            cita: {
-                start: e.start,
-                end: e.end,
-            }
-        })
-        this.showModal();
+        const localTime = new Date()
+
+        if(e.start < localTime){
+            showNotification("Cita incorrecta","La fecha seleccionada ya pasó.", "info")
+        } else {
+            this.setState({
+                cita: {
+                    start: e.start,
+                    end: e.end,
+                }
+            })
+            this.showModal();
+        }
+    }
+
+    selectEvent() {
+        showNotification("Error de seleccion", "Ya existe una cita programada en la fecha seleccionada.", 'info')
     }
 
     onSubmitCita = async e => {
         e.preventDefault()
-        console.log(this.state)
         const token = await getToken();
 
-        const res = await axios.post('http://localhost:4000/api/paciente/me/citas', {
+        await axios.post('http://localhost:4000/api/paciente/me/citas', {
             cita: {
                 paciente: {
                     id: this.state._id,
@@ -153,93 +152,91 @@ export default class NewCita extends Component {
             },
         });
 
-        console.log(res)
         await this.props.history.push('/escritorio')
         await showNotification('Cita Medica Solicitada!',' ','success')
     }
-
+    
     render() {
         return (
             <div id="dashboard"className="dashboard">
                 <div className="container card border-0 shadow bg-white rounded">
                     <div className="container card-body ">
-                        <form onSubmit={this.onSubmitCita}>
-                            <div className="titulo mb-4">
-                                <h1 className="font-weight-light">Solicitud de Cita Medica</h1>
-                                <hr />
-                            </div>
+                        <div className="titulo mb-4">
+                            <h1 className="font-weight-light">Solicitud de Cita Medica</h1>
+                            <hr />
+                        </div>
 
-                            <div className="form-group pb-3">
-                                <label htmlFor="exampleInputEmail1" className="cita-label"><i className="far fa-hospital mr-2"></i>Seleccione Area de Atencion</label>
-                                <select className="form-control" id="exampleFormControlSelect1" onChange={this.onSelectChange}>
-                                    <option value="" >Areas de Atencion Medica</option>
-                                    {
-                                        this.state.areasMedicas.map(am =>
-                                            (<option id={am._id} key={am._id} > {am.nombre} </option>)
-                                        )
-                                    }
-                                </select>
-                            </div>
+                        <div className="form-group pb-3">
+                            <label htmlFor="exampleInputEmail1" className="cita-label"><i className="far fa-hospital mr-2"></i>Seleccione Area de Atencion</label>
+                            <select className="form-control" id="exampleFormControlSelect1" onChange={this.onSelectChange}>
+                                <option value="" >Areas de Atencion Medica</option>
+                                {
+                                    this.state.areasMedicas.map(am =>
+                                        (<option id={am._id} key={am._id} > {am.nombre} </option>)
+                                    )
+                                }
+                            </select>
+                        </div>
 
-                            {
-                                this.state.isActive && <div className="calendario">
+                        {
+                            this.state.isActive && <div className="calendario">
 
-                                    <div className="d-flex flex-column mb-2">
-                                        <label className="cita-label mb-0" htmlFor=" date "><i className="far fa-calendar-check mr-2"></i>Seleccione Fecha y Hora</label>
-                                        <small>Haz clic en el dia y hora disponible en la cual desees reservar una cita. </small>
-                                    </div>
-
-                                    <div className="bigCalendar-container mb-3">
-                                        <Calendar
-                                            localizer={localizer}
-                                            events={this.state.citasArea}
-                                            startAccessor="start"
-                                            endAccessor="end"
-                                            views={['work_week']}
-                                            defaultView='work_week'
-                                            messages={{
-                                                next: "Siguiente",
-                                                previous: "Anterior",
-                                                today: "Hoy"
-                                            }}
-                                            step={60}
-                                            timeslots={1}
-                                            selectable={true}
-                                            onSelectSlot={this.onSelectCita}
-                                            onSelecting={this.selecting}
-                                            min={new Date(0, 0, 0, 8, 0, 0)}
-                                            max={new Date(0, 0, 0, 20, 0, 0)}
-                                        />
-                                    </div>
-                                </div>
-                            }
-
-                            <div className="row">
-                                <div className="col-lg-3">
-                                    <Link className="btn btn-primary btn btn-block" to='/escritorio'><i className="fas fa-chevron-left mr-3"></i>Volver a Mi Escritorio</Link>
+                                <div className="d-flex flex-column mb-2">
+                                    <label className="cita-label mb-0" htmlFor=" date "><i className="far fa-calendar-check mr-2"></i>Seleccione Fecha y Hora</label>
+                                    <small>Haz clic en el dia y hora disponible en la cual desees reservar una cita. </small>
                                 </div>
 
-                                
+                                <div className="bigCalendar-container mb-3">
+                                    <Calendar
+                                        localizer={localizer}
+                                        events={this.state.citasArea}
+                                        startAccessor="start"
+                                        endAccessor="end"
+                                        views={['work_week']}
+                                        defaultView='work_week'
+                                        messages={{
+                                            next: "Siguiente",
+                                            previous: "Anterior",
+                                            today: "Hoy"
+                                        }}
+                                        step={60}
+                                        timeslots={1}
+                                        selectable={true}
+                                        onSelectSlot={this.onSelectCita}
+                                        onSelectEvent={this.selectEvent}
+                                        onSelecting={() => {return false}}
+                                        min={new Date(0, 0, 0, 8, 0, 0)}
+                                        max={new Date(0, 0, 0, 20, 0, 0)}
+                                    />
+                                </div>
+                            </div>
+                        }
+
+                        <div className="row">
+                            <div className="col-lg-3">
+                                <Link className="btn btn-primary btn btn-block" to='/escritorio'><i className="fas fa-chevron-left mr-3"></i>Volver a Mi Escritorio</Link>
                             </div>
 
-                            <Modal
-                                isOpen={this.state.showModal}
-                                onRequestClose={this.closeModal}
-                                style={modalStyles}
-                                contentLabel="Example Modal">
+                            
+                        </div>
 
-                                <h4>Confirmacion de Cita Medica</h4>
-                                <hr className="mb-2"/>
+                        <Modal
+                            isOpen={this.state.showModal}
+                            onRequestClose={this.closeModal}
+                            style={modalStyles}
+                            contentLabel="Example Modal">
 
-                                <p className=" text-muted"><i className="far fa-hospital mr-2"></i>Area de atencion: {this.state.areaMedica.nombre}</p>
-                                <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>Fecha: {moment(this.state.cita.start).format("LL")} </p>
-                                <p className=" text-muted"><i className="far fa-clock mr-1"></i>Hora: {moment(this.state.cita.start).format("LT")}</p>
-                                
+                            <h4>Confirmacion de Cita Medica</h4>
+                            <hr className="mb-2"/>
 
-                                <p>¿Confirmas tu cita medica con los datos anteriores?</p>
-                                <button className="btn btn-success btn-block" onClick={this.onSubmitCita}><i className="fas fa-save mr-3"></i>Solicitar Cita Medica</button>
-                            </Modal>
-                        </form>
+                            <p className=" text-muted"><i className="far fa-hospital mr-2"></i>Area de atencion: {this.state.areaMedica.nombre}</p>
+                            <p className=" text-muted"><i className="fas fa-calendar-day mr-1"></i>Fecha: {moment(this.state.cita.start).format("LL")} </p>
+                            <p className=" text-muted"><i className="far fa-clock mr-1"></i>Hora: {moment(this.state.cita.start).format("LT")}</p>
+                            
+
+                            <p>¿Confirmas tu cita medica con los datos anteriores?</p>
+                            <button className="btn btn-success btn-block" onClick={this.onSubmitCita}><i className="fas fa-save mr-3"></i>Solicitar Cita Medica</button>
+                        </Modal>
                     </div>
                 </div>
             </div>
