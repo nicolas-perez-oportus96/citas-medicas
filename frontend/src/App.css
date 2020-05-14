@@ -1,0 +1,195 @@
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;600&display=swap');
+
+
+
+hr { 
+    display: block;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+    color: dimgrey;
+}
+
+.logo {
+    font-size: 22px;
+    margin-left: 8px;
+    margin-bottom: 0px;
+    font-family: 'Hind Madurai', sans-serif;
+}
+
+
+.modal {
+    width: 500px;
+    height: 300px;
+}
+
+.rbc-current-time-indicator {
+    display: none;
+}
+
+/* LOGIN NAVIGATION  d-flex justify-content-between align-items-center*/
+.login-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.hero {
+    background-image: url("/img/jumbotron.jpg");
+    height: 40vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: white;
+    padding: 0;
+}
+
+.jumbo-content {
+    height: 100%;
+    margin: 0 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 0;
+}
+
+.lead {
+    font-family: 'Hind Madurai', sans-serif;
+}
+
+.section-title {
+    font-weight: 300;
+    font-size: 30px;
+    color: rgb(82, 82, 82);
+}
+
+
+.signInComponent {
+    height: 94.1vh;
+    background: url('/img/jumbo.png') no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.register {
+    height: 250px;
+    padding: 55px;
+    background-image: url('/img/register.jpg') no-repeat center center fixed;
+}
+
+.dashboard {
+    height: 94.6vh;
+    background: url('/img/jumbo.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.signed {
+    background: url('/img/desktop-back.jpg') no-repeat center center ;
+    background-size: cover;
+}
+
+.admin-signed {
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+}
+
+.signInCard {
+    max-width: 50rem;
+    padding-top: 3rem;
+}
+
+.admin-sign-in {
+    background: url('/img/admin.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+.signInlabel{
+    width: 160px;
+}
+
+.site-footer {
+    background-color: rgba(11, 3, 3, 0.44);
+}
+
+.datos {
+    background-color: rgba(11, 3, 3, 0.44);
+}
+
+.bigCalendar-container {
+    height: 30rem;
+    width: auto;
+    border: 2px solid rgba(2,117,216,0.38);
+    border-radius: 7px;
+    padding: 3px;
+}
+
+.cita-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    
+}
+.area-medica {
+    width: 18rem;
+    height: 8rem;
+}
+
+.areas-container {
+    background-color: rgba(254, 254, 254, 0.6);
+    padding: 50px;
+}
+
+.registerComponent {
+    background-color: #d2d9e0;
+}
+
+/*!Bootstrap Sidebar */
+
+body {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
