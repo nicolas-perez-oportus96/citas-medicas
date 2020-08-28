@@ -84,7 +84,7 @@ export default class CitasArea extends Component {
                                     this.state.citasArea.map(cita => (
                                         <tr>
                                             <td className="pr-0">{moment(cita.start).format("LL")}</td>
-                                            <td>{moment.utc(cita.start).format("LT")}</td>
+                                            <td>{moment(cita.start).format("LT")}</td>
                                             <td>{cita.paciente.rut}</td>
                                             <td>{cita.paciente.apellidos}</td>
                                             <td>{cita.paciente.nombres}</td>
